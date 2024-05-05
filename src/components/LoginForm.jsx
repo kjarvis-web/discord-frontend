@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../reducers/loginReducer';
+import CreateChat from './CreateChat';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -18,7 +19,7 @@ const LoginForm = () => {
   if (!user)
     return (
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 text-zinc-950">
           <input
             type="text"
             value={username}
@@ -33,12 +34,19 @@ const LoginForm = () => {
               setPassword(e.target.value);
             }}
           />
-          <button type="submit">Log In</button>
+          <button type="submit" className="text-slate-100">
+            Log In
+          </button>
         </form>
       </div>
     );
 
-  return <div>{user.username} logged in</div>;
+  return (
+    <div>
+      <p>{user.username} logged in</p>
+      <CreateChat />
+    </div>
+  );
 };
 
 export default LoginForm;
