@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../reducers/loginReducer';
-import CreateChat from './CreateChat';
+import { loginUser, logout } from '../reducers/loginReducer';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -16,10 +15,14 @@ const LoginForm = () => {
     setPassword('');
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   if (!user)
     return (
       <div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2 text-zinc-950">
+        <form onSubmit={handleSubmit} className="flex gap-2 text-zinc-950">
           <input
             type="text"
             value={username}
@@ -42,9 +45,11 @@ const LoginForm = () => {
     );
 
   return (
-    <div>
+    <div className="flex gap-4 items-center text-sm">
       <p>{user.username} logged in</p>
-      <CreateChat />
+      <button onClick={handleLogout} className="bg-slate-200 rounded-full p-2 text-zinc-900">
+        Log Out
+      </button>
     </div>
   );
 };

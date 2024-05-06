@@ -22,11 +22,11 @@ const CreateChat = () => {
     dispatch(setRecipient(username));
   };
   return (
-    <div>
+    <div className="find-user">
       <input
         type="text"
         placeholder="type in username"
-        className="text-zinc-950"
+        className="text-zinc-950 w-full rounded-full p-2 outline-none"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />

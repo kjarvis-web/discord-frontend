@@ -3,7 +3,7 @@ import userService from '../services/users';
 
 const userSlice = createSlice({
   name: 'users',
-  initialState: { allUsers: [], error: false, recipient: '' },
+  initialState: { allUsers: [], error: false, recipient: null },
   reducers: {
     initializeUsers(state, action) {
       return { ...state, allUsers: action.payload };

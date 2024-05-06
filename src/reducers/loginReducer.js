@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import loginService from '../services/login';
+import chatService from '../services/chat';
 
 const loginSlice = createSlice({
   name: 'login',
@@ -32,7 +33,7 @@ export const loginUser = (username, password) => {
         password,
       });
       window.localStorage.setItem('loggedUser', JSON.stringify(user));
-      loginService.setToken(user.token);
+      chatService.setToken(user.token);
       dispatch(setUser(user));
       dispatch(setLoading(false));
     } catch (error) {
@@ -48,7 +49,7 @@ export const loginUser = (username, password) => {
 export const loggedUser = (user) => {
   return async (dispatch) => {
     dispatch(setUser(user));
-    loginService.setToken(user.token);
+    chatService.setToken(user.token);
   };
 };
 
