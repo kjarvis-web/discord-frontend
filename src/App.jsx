@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import LoginForm from './components/LoginForm';
 import { useEffect } from 'react';
 import { loggedUser } from './reducers/loginReducer';
 import Sidebar from './components/Sidebar';
@@ -7,7 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chat from './components/Chat';
-import { getChat } from './reducers/chatReducer';
+import { getChat, getMessages } from './reducers/chatReducer';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +17,7 @@ function App() {
       dispatch(loggedUser(user));
     }
     dispatch(getChat());
+    dispatch(getMessages());
   }, [dispatch]);
   return (
     <Router>

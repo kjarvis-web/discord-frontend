@@ -25,4 +25,12 @@ const addChat = async (newChat) => {
   return response.data;
 };
 
-export default { getChat, addChat, setToken };
+const addMessage = async (id, message) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.post(`${baseUrl}/${id}`, message, config);
+  return response.data;
+};
+
+export default { getChat, addChat, setToken, addMessage };
