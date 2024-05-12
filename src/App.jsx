@@ -6,7 +6,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chat from './components/Chat';
-import { getChat, getMessages } from './reducers/chatReducer';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,19 +15,17 @@ function App() {
       const user = JSON.parse(loggedUserJSON);
       dispatch(loggedUser(user));
     }
-    dispatch(getChat());
-    dispatch(getMessages());
   }, [dispatch]);
   return (
     <Router>
       <main className="flex min-h-screen flex-col bg-slate-950 text-slate-100">
-        <div className="grid grid-cols-12">
+        <div className="grid grid-cols-4 md:grid-cols-12">
           <Navbar />
           <Sidebar />
-          <div className="col-start-2 row-start-2 col-span-11">
+          <div className="row-start-2 col-span-3 md:col-span-11">
             <Chat />
           </div>
-          <div className="col-start-1 col-span-12">
+          <div className="col-start-1 col-span-4 md:col-span-12">
             <Footer />
           </div>
         </div>

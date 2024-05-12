@@ -8,7 +8,8 @@ const CreateChat = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.allUsers);
   const recipient = useSelector((state) => state.users.recipient);
-  console.log('recipient', recipient);
+  const findUser = users.find((u) => u.username === recipient);
+  console.log('finduser', findUser);
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
@@ -20,18 +21,21 @@ const CreateChat = () => {
     e.preventDefault();
     const { username } = user;
     dispatch(setRecipient(username));
+    setQuery('');
   };
   return (
-    <div className="find-user">
+    <div className="find-user text-sm relative">
+      <label htmlFor="search">Find User: </label>
       <input
         type="text"
         placeholder="type in username"
-        className="text-zinc-950 w-full rounded-full p-2 outline-none"
+        className="text-zinc-950 rounded-full p-2 outline-none"
+        id="search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
       {query.length > 0 && (
-        <div>
+        <div className="absolute flex flex-col bg-slate-600 w-full">
           {results.map((u) => (
             <form key={u.id} className="flex gap-2" onSubmit={(e) => handleSubmit(e, u)}>
               <p>{u.username}</p>

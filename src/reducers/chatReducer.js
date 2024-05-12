@@ -3,7 +3,12 @@ import chatService from '../services/chat';
 
 const chatSlice = createSlice({
   name: 'chat',
-  initialState: { first: null, messages: null, loading: false, error: false },
+  initialState: {
+    first: null,
+    messages: null,
+    loading: false,
+    error: false,
+  },
   reducers: {
     setLoading(state, action) {
       return { ...state, loading: action.payload };
@@ -27,6 +32,7 @@ export const getChat = () => {
     try {
       dispatch(setLoading(true));
       const newChat = await chatService.getChat();
+      console.log(newChat);
       dispatch(initializeChat(newChat));
       dispatch(setLoading(false));
     } catch (error) {

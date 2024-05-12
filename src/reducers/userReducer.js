@@ -3,7 +3,7 @@ import userService from '../services/users';
 
 const userSlice = createSlice({
   name: 'users',
-  initialState: { allUsers: [], error: false, recipient: null },
+  initialState: { allUsers: [], loggedUser: null, error: false, recipient: null },
   reducers: {
     initializeUsers(state, action) {
       return { ...state, allUsers: action.payload };
@@ -17,15 +17,26 @@ const userSlice = createSlice({
     setRecipient(state, action) {
       return { ...state, recipient: action.payload };
     },
+    setLoggedUser(state, action) {
+      return { ...state, loggedUser: action.payload };
+    },
   },
 });
 
-export const { initializeUsers, appendUser, setError, setRecipient } = userSlice.actions;
+export const { initializeUsers, appendUser, setError, setRecipient, setLoggedUser } =
+  userSlice.actions;
 
 export const getUsers = () => {
   return async (dispatch) => {
     const users = await userService.getUsers();
     dispatch(initializeUsers(users));
+  };
+};
+
+export const getLoggedUser = (id) => {
+  return async (dispatch) => {
+    const user = await userService.getLoggedUser(id);
+    dispatch(setLoggedUser(user));
   };
 };
 
