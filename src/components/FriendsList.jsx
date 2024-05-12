@@ -21,8 +21,6 @@ const FriendsList = () => {
     dispatch(setRecipient(user));
   };
 
-  console.log('recipient', chats);
-
   if (!user || !chats) return <div>loading...</div>;
 
   return (
@@ -33,7 +31,6 @@ const FriendsList = () => {
           const findChat = chats.find(
             (chat) => chat.user1 === friend.id || chat.user2 === friend.id
           );
-          console.log(findChat);
           return (
             <Link key={friend.id} to={`/chats/${findChat.id}`}>
               <button onClick={() => handleFriend(friend.id)}>{friend.username}</button>

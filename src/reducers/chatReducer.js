@@ -5,7 +5,7 @@ const chatSlice = createSlice({
   name: 'chat',
   initialState: {
     chats: null,
-    // messages: null,
+    messages: [],
     loading: false,
     error: false,
   },
@@ -20,15 +20,21 @@ const chatSlice = createSlice({
       };
     },
     appendMessage(state, action) {
-      return { ...state, messages: [...state.messages, action.payload] };
+      const findChat = state.chats.find((o) => o.id === action.payload.chatId);
+      console.log(action.payload.chatId);
+      const newUser = { ...findChat, messages: [...findChat.messages, action.payload] };
+      const newUsers = state.chats.filter((o) => o.id !== action.payload.chatId);
+      console.log(action.payload.chatId);
+      return { ...state, chats: [...newUsers, newUser] };
     },
-    // initializeMessages(state, action) {
-    //   return { ...state, messages: action.payload };
-    // },
+    appendChat(state, action) {
+      return { ...state, chats: [...state.chats, action.payload] };
+    },
   },
 });
 
-export const { setLoading, initializeChat, appendMessage, initializeMessages } = chatSlice.actions;
+export const { setLoading, initializeChat, appendMessage, initializeMessages, appendChat } =
+  chatSlice.actions;
 
 export const getChat = () => {
   return async (dispatch) => {
@@ -37,6 +43,19 @@ export const getChat = () => {
       const newChat = await chatService.getChat();
       console.log('newchat', newChat);
       dispatch(initializeChat(newChat));
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const addChat = (obj) => {
+  return async (dispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const newChat = await chatService.addChat(obj);
+      dispatch(appendChat(newChat));
       dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
@@ -61,9 +80,11 @@ export const getChat = () => {
 export const addMessage = (id, message) => {
   return async (dispatch) => {
     try {
+      dispatch(setLoading(true));
       const newMessage = await chatService.addMessage(id, message);
       console.log(newMessage);
       dispatch(appendMessage(newMessage));
+      dispatch(setLoading(false));
     } catch (error) {
       console.log('addMessage', error);
     }

@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chat from './components/Chat';
 import Homepage from './components/Homepage';
+import NewChat from './components/NewChat';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/chats/:id" element={<Chat />} />
+              <Route path="/chats/new" element={<NewChat />} />
             </Routes>
           </div>
           <div className="col-start-1 col-span-4 md:col-span-12">

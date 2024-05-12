@@ -32,6 +32,7 @@ const Chat = () => {
       const message = {
         text,
         user1: user,
+        chatId: id,
       };
       dispatch(addMessage(id, message));
     };
