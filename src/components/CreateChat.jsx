@@ -7,9 +7,9 @@ import { useState } from 'react';
 const CreateChat = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.allUsers);
-  const recipient = useSelector((state) => state.users.recipient);
-  const findUser = users.find((u) => u.username === recipient);
-  console.log('finduser', findUser);
+  // const recipient = useSelector((state) => state.users.recipient);
+  // const findUser = users.find((u) => u.username === recipient);
+  console.log('users', users);
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
@@ -19,8 +19,8 @@ const CreateChat = () => {
   console.log('results', results);
   const handleSubmit = (e, user) => {
     e.preventDefault();
-    const { username } = user;
-    dispatch(setRecipient(username));
+    const { id } = user;
+    dispatch(setRecipient(id));
     setQuery('');
   };
   return (

@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chat from './components/Chat';
+import Homepage from './components/Homepage';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +24,10 @@ function App() {
           <Navbar />
           <Sidebar />
           <div className="row-start-2 col-span-3 md:col-span-11">
-            <Chat />
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/chats/:id" element={<Chat />} />
+            </Routes>
           </div>
           <div className="col-start-1 col-span-4 md:col-span-12">
             <Footer />

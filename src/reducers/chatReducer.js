@@ -4,8 +4,8 @@ import chatService from '../services/chat';
 const chatSlice = createSlice({
   name: 'chat',
   initialState: {
-    first: null,
-    messages: null,
+    chats: null,
+    // messages: null,
     loading: false,
     error: false,
   },
@@ -14,14 +14,17 @@ const chatSlice = createSlice({
       return { ...state, loading: action.payload };
     },
     initializeChat(state, action) {
-      return { ...state, first: action.payload };
+      return {
+        ...state,
+        chats: action.payload,
+      };
     },
     appendMessage(state, action) {
       return { ...state, messages: [...state.messages, action.payload] };
     },
-    initializeMessages(state, action) {
-      return { ...state, messages: action.payload };
-    },
+    // initializeMessages(state, action) {
+    //   return { ...state, messages: action.payload };
+    // },
   },
 });
 
@@ -32,7 +35,7 @@ export const getChat = () => {
     try {
       dispatch(setLoading(true));
       const newChat = await chatService.getChat();
-      console.log(newChat);
+      console.log('newchat', newChat);
       dispatch(initializeChat(newChat));
       dispatch(setLoading(false));
     } catch (error) {
@@ -41,19 +44,19 @@ export const getChat = () => {
   };
 };
 
-export const getMessages = () => {
-  return async (dispatch) => {
-    try {
-      dispatch(setLoading(true));
-      const newMessages = await chatService.getChat();
-      const messages = newMessages.map((m) => m.messages);
-      dispatch(initializeMessages(...messages));
-      dispatch(setLoading(false));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
+// export const getMessages = () => {
+//   return async (dispatch) => {
+//     try {
+//       dispatch(setLoading(true));
+//       const newMessages = await chatService.getChat();
+//       const messages = newMessages.map((m) => m.messages);
+//       dispatch(initializeMessages(...messages));
+//       dispatch(setLoading(false));
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
 
 export const addMessage = (id, message) => {
   return async (dispatch) => {

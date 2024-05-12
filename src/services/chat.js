@@ -12,8 +12,7 @@ const getChat = async () => {
   const config = {
     headers: { Authorization: token },
   };
-  console.log('token', token);
-  const response = await axios.get(baseUrl, config);
+  const response = await axios.get(`${baseUrl}`, config);
   return response.data;
 };
 
