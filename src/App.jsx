@@ -20,9 +20,9 @@ function App() {
   }, [dispatch]);
   return (
     <Router>
-      <main className="flex flex-col bg-slate-950 text-slate-100">
+      <main className="flex h-screen flex-col bg-slate-950 text-slate-100">
         <Navbar />
-        <div className="grid grid-cols-4 md:grid-cols-12 h-screen">
+        <div className="grid grid-cols-4 md:grid-cols-12 h-full">
           <Sidebar />
           <div className="col-span-3 md:col-span-10">
             <Routes>
