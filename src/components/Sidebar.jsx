@@ -2,8 +2,7 @@ import FriendsList from './FriendsList';
 
 const Sidebar = () => {
   return (
-    <div className="bg-slate-900 h-screen row-start-2 col-start-1 col-span-2 p-2 text-sm">
-      {/* <CreateChat /> */}
+    <div className="bg-slate-900 p-2 text-sm md:col-span-2 col-start-1">
       <FriendsList />
     </div>
   );

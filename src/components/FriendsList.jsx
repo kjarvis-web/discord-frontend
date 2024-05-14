@@ -21,6 +21,8 @@ const FriendsList = () => {
     dispatch(setRecipient(user));
   };
 
+  if (!loginUser) return <div>Log In</div>;
+
   if (!user || !chats) return <div>loading...</div>;
 
   return (

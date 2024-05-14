@@ -20,21 +20,19 @@ function App() {
   }, [dispatch]);
   return (
     <Router>
-      <main className="flex min-h-screen flex-col bg-slate-950 text-slate-100">
-        <div className="grid grid-cols-4 md:grid-cols-12">
-          <Navbar />
+      <main className="flex flex-col bg-slate-950 text-slate-100">
+        <Navbar />
+        <div className="grid grid-cols-4 md:grid-cols-12 h-screen">
           <Sidebar />
-          <div className="row-start-2 col-span-3 md:col-span-11">
+          <div className="col-span-3 md:col-span-10">
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/chats/:id" element={<Chat />} />
               <Route path="/chats/new" element={<NewChat />} />
             </Routes>
           </div>
-          <div className="col-start-1 col-span-4 md:col-span-12">
-            <Footer />
-          </div>
         </div>
+        <Footer />
       </main>
     </Router>
   );
