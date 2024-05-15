@@ -38,22 +38,8 @@ const Chat = () => {
     };
 
     return (
-      // <div className="chat-box bg-slate-700 overflow-y-auto h-screen">
-      //   <h1>Sending message to {recipient}</h1>
-      //   <p>{findUser.chat}</p>
-      //   {findUser.messages.map((m, i) => (
-      //     <p key={i}>{m.text}</p>
-      //   ))}
-      //   <input
-      //     type="text"
-      //     value={text}
-      //     onChange={(e) => setText(e.target.value)}
-      //     className="text-zinc-950"
-      //   />
-      //   <button onClick={handleSend}>Send</button>
-      // </div>
-      <div className="flex flex-col relative h-full">
-        <div className="flex-grow bg-slate-700 overflow-y-auto flex flex-col-reverse pb-16">
+      <div className="flex flex-col h-full text-6xl">
+        <div className="flex-grow bg-slate-700 flex flex-col-reverse">
           <div className="py-4">
             {findUser.messages.map((m, i) => (
               <div key={i} className="flex flex-col bg-slate-800 mt-2">
@@ -64,22 +50,22 @@ const Chat = () => {
                 <p>{m.text}</p>
               </div>
             ))}
-          </div>
-        </div>
-        <div className="p-4 absolute bottom-0 w-full">
-          <div className="flex items-center">
-            <input
-              type="text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              className="flex-grow bg-zinc-100 text-zinc-950 p-2 rounded mr-4 text-sm outline-none"
-            />
-            <button
-              onClick={handleSend}
-              className="bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded text-sm"
-            >
-              Send
-            </button>
+            <div className="pt-4 px-2 w-full">
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  className="flex-grow bg-zinc-100 text-zinc-950 p-2 rounded mr-4 text-sm outline-none"
+                />
+                <button
+                  onClick={handleSend}
+                  className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-sm"
+                >
+                  Send
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
