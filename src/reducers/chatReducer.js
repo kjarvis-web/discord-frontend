@@ -5,7 +5,6 @@ const chatSlice = createSlice({
   name: 'chat',
   initialState: {
     chats: null,
-    messages: [],
     loading: false,
     error: false,
   },
@@ -21,10 +20,9 @@ const chatSlice = createSlice({
     },
     appendMessage(state, action) {
       const findChat = state.chats.find((o) => o.id === action.payload.chatId);
-      console.log(action.payload.chatId);
       const newUser = { ...findChat, messages: [...findChat.messages, action.payload] };
       const newUsers = state.chats.filter((o) => o.id !== action.payload.chatId);
-      console.log(action.payload.chatId);
+
       return { ...state, chats: [...newUsers, newUser] };
     },
     appendChat(state, action) {
@@ -62,20 +60,6 @@ export const addChat = (obj) => {
     }
   };
 };
-
-// export const getMessages = () => {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(setLoading(true));
-//       const newMessages = await chatService.getChat();
-//       const messages = newMessages.map((m) => m.messages);
-//       dispatch(initializeMessages(...messages));
-//       dispatch(setLoading(false));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
 
 export const addMessage = (id, message) => {
   return async (dispatch) => {
