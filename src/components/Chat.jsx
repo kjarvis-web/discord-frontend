@@ -28,10 +28,8 @@ const Chat = () => {
 
   useEffect(() => {
     console.log('socket use effect');
-    socket.on('receive_message', (data) => {
-      console.log(data);
-    });
-  }, [dispatch]);
+    // socket.on('receive_message', (data) => {});
+  }, [dispatch, id]);
 
   if (loading) return <div>loading...</div>;
 
@@ -48,7 +46,6 @@ const Chat = () => {
       socket.emit('send_message', message);
       dispatch(addMessage(id, message));
       setText('');
-      <ScrollToBottom />;
     };
 
     return (
