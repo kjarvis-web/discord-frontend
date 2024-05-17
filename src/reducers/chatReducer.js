@@ -64,11 +64,9 @@ export const addChat = (obj) => {
 export const addMessage = (id, message) => {
   return async (dispatch) => {
     try {
-      dispatch(setLoading(true));
       const newMessage = await chatService.addMessage(id, message);
       console.log(newMessage);
       dispatch(appendMessage(newMessage));
-      dispatch(setLoading(false));
     } catch (error) {
       console.log('addMessage', error);
     }

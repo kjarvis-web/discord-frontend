@@ -48,6 +48,7 @@ const Chat = () => {
       socket.emit('send_message', message);
       dispatch(addMessage(id, message));
       setText('');
+      <ScrollToBottom />;
     };
 
     return (
