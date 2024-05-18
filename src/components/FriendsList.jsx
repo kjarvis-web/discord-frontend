@@ -27,7 +27,7 @@ const FriendsList = () => {
 
   return (
     <div>
-      <h1 className="font-bold text-xl">Friends</h1>
+      <h1 className="font-bold text-2xl">Friends</h1>
       <div className="flex flex-col">
         {user.friends.map((friend) => {
           const findChat = chats.find(

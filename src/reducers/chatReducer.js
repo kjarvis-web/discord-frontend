@@ -4,10 +4,9 @@ import chatService from '../services/chat';
 const chatSlice = createSlice({
   name: 'chat',
   initialState: {
-    chats: null,
+    chats: [],
     loading: false,
     error: false,
-    received: [],
   },
   reducers: {
     setLoading(state, action) {
@@ -56,6 +55,7 @@ export const addChat = (obj) => {
       const newChat = await chatService.addChat(obj);
       dispatch(appendChat(newChat));
       dispatch(setLoading(false));
+      return newChat;
     } catch (error) {
       console.log(error);
     }

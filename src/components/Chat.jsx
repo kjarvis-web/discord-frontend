@@ -18,7 +18,7 @@ const Chat = () => {
   const loginUser = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
   const id = useParams().id;
-  const [message, setMessage] = useState([]);
+  const users = useSelector((state) => state.users.allUsers);
 
   useEffect(() => {
     if (loginUser) {
@@ -36,11 +36,10 @@ const Chat = () => {
   }, [dispatch]);
 
   if (loading) return <div>loading...</div>;
-
-  if (chats) {
-    const findUser = chats.find((c) => c.id === id);
-    const allMessages = findUser.messages.concat(message);
-    const sortedMessages = allMessages.sort((a, b) => a.created - b.created);
+  const findUser = chats.find((c) => c.id === id);
+  if (!findUser) {
+    return <div>404</div>;
+  } else {
     socket.emit('join_room', id);
 
     const handleSend = (e) => {
@@ -58,11 +57,20 @@ const Chat = () => {
       setText('');
     };
 
+    const { username } = users.find((u) => u.id === findUser.user1);
+
     return (
       <div className="flex flex-col h-full">
-        <div className="bg-slate-800 flex flex-col">
+        <div className="bg-slate-800 flex flex-col mt-auto">
           <div className="py-4">
-            {sortedMessages.map((m, i) => (
+            <div className="flex flex-col mt-2 rounded">
+              <div className="flex gap-2 text-xs">
+                <p className="font-bold">{username}</p>
+                <p>{findUser.date}</p>
+              </div>
+              <p className="text-lg">{findUser.chat}</p>
+            </div>
+            {findUser.messages.map((m, i) => (
               <div key={i} className="flex flex-col mt-2 rounded">
                 <div className="flex gap-2 text-xs">
                   <p className="font-bold">{m.user.username}</p>

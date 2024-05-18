@@ -21,12 +21,13 @@ const Search = () => {
       u.username.toLowerCase().includes(query.toLowerCase()) &&
       u.username.toLowerCase() !== loginUser.username.toLowerCase()
   );
- 
+
   const handleSubmit = (e, user) => {
     e.preventDefault();
     const { id } = user;
     dispatch(setRecipient(id));
     const findChat = chats.find((chat) => chat.user1 === id || chat.user2 === id);
+    console.log(findChat);
     if (findChat) {
       navigate(`/chats/${findChat.id}`);
     } else {

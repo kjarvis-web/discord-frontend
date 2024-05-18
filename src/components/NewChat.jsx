@@ -11,16 +11,18 @@ const NewChat = () => {
   const { chats } = useSelector((state) => state.chat);
   const navigate = useNavigate();
   console.log('chats', chats);
-  const handleSubmit = (e) => {
-    const findChat = chats.find((chat) => chat.user1 === recipient || chat.user2 === recipient);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newChat = {
       chat,
       recipient,
     };
-    dispatch(addChat(newChat));
-    navigate(`/chats/${findChat.id}`);
+    const { id } = await dispatch(addChat(newChat));
+    if (id) {
+      navigate(`/chats/${id}`);
+    }
   };
+
   return (
     <div>
       <h1>New Chat to {recipient}</h1>
