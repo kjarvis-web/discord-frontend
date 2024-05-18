@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { addMessage, getChat } from '../reducers/chatReducer';
+import { addMessage, appendMessage, getChat } from '../reducers/chatReducer';
 import { useEffect } from 'react';
 import { getLoggedUser } from '../reducers/userReducer';
 import { useParams } from 'react-router-dom';
 import ScrollToBottom from './ScrollToBottom';
 import io from 'socket.io-client';
+import { format } from 'date-fns';
 const socket = io.connect('http://localhost:3000');
 
 const Chat = () => {
@@ -17,48 +18,57 @@ const Chat = () => {
   const loginUser = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
   const id = useParams().id;
+  const [message, setMessage] = useState([]);
 
   useEffect(() => {
     if (loginUser) {
       dispatch(getLoggedUser(loginUser.id));
     }
-    console.log('chat use effect');
     dispatch(getChat());
   }, [dispatch, loginUser]);
 
   useEffect(() => {
-    console.log('socket use effect');
-    // socket.on('receive_message', (data) => {});
-  }, [dispatch, id]);
+    socket.on('receive_message', (data) => {
+      dispatch(appendMessage(data));
+    });
+
+    return () => socket.off('receive_message');
+  }, [dispatch]);
 
   if (loading) return <div>loading...</div>;
 
   if (chats) {
-    const findUser = chats.find((c) => c.id == id);
+    const findUser = chats.find((c) => c.id === id);
+    const allMessages = findUser.messages.concat(message);
+    const sortedMessages = allMessages.sort((a, b) => a.created - b.created);
+    socket.emit('join_room', id);
 
     const handleSend = (e) => {
+      const date = new Date();
       e.preventDefault();
       const message = {
         text,
-        user1: user,
+        user,
         chatId: id,
+        date: format(date, 'M/d/yyyy, hh:mm aa'),
+        created: Date.now(),
       };
-      socket.emit('send_message', message);
+      socket.emit('send_message', id, message);
       dispatch(addMessage(id, message));
       setText('');
     };
 
     return (
-      <div className="flex flex-col h-full text-6xl">
-        <div className="flex-grow bg-slate-800 flex flex-col-reverse">
+      <div className="flex flex-col h-full">
+        <div className="bg-slate-800 flex flex-col">
           <div className="py-4">
-            {findUser.messages.map((m, i) => (
-              <div key={i} className="flex flex-col bg-slate-800 mt-2">
+            {sortedMessages.map((m, i) => (
+              <div key={i} className="flex flex-col mt-2 rounded">
                 <div className="flex gap-2 text-xs">
-                  <p>{m.user.username}</p>
+                  <p className="font-bold">{m.user.username}</p>
                   <p>{m.date}</p>
                 </div>
-                <p>{m.text}</p>
+                <p className="text-lg">{m.text}</p>
               </div>
             ))}
             <div className="pt-4 px-2 w-full">

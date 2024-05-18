@@ -7,6 +7,7 @@ const chatSlice = createSlice({
     chats: null,
     loading: false,
     error: false,
+    received: [],
   },
   reducers: {
     setLoading(state, action) {
