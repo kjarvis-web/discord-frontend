@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { SlOptionsVertical, SlPencil } from 'react-icons/sl';
+import { SlOptionsVertical, SlPencil, SlTrash } from 'react-icons/sl';
 import EditForm from './EditForm';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const Dropdown = ({ message }) => {
   const user = useSelector((state) => state.login.user);
@@ -16,7 +17,6 @@ const Dropdown = ({ message }) => {
   const toggleEdit = () => {
     setEdit(!edit);
   };
-  console.log(message);
 
   if (user.username !== message.user.username) return null;
   return (
@@ -29,11 +29,18 @@ const Dropdown = ({ message }) => {
               className="w-4 h-4 hover:text-slate-800 hover:cursor-pointer"
             />
             {open && !edit && (
-              <ul className="absolute right-2 bg-slate-800 rounded p-2 mt-1">
-                <li className="hover:cursor-pointer" onClick={toggleEdit}>
-                  Edit
+              <ul className="absolute right-2 bg-slate-800 rounded p-3 mt-1 text-xs font-bold flex flex-col gap-2 z-10">
+                <li
+                  className="hover:cursor-pointer hover:text-blue-500 flex items-center gap-2"
+                  onClick={toggleEdit}
+                >
+                  <SlPencil className="w-3 h-3" />
+                  <p>Edit</p>
                 </li>
-                <li>Delete</li>
+                <li className="hover:cursor-pointer hover:text-blue-500 flex items-center gap-2">
+                  <SlTrash className="w-3 h-3" />
+                  <p>Delete</p>
+                </li>
               </ul>
             )}
           </div>

@@ -85,7 +85,7 @@ const Chat = () => {
                   <p>{m.date}</p>
                 </div>
                 <div className="flex relative">
-                  <p className="message text-lg whitespace-pre-wrap mr-2">{m.text}</p>
+                  <p className="message text-base whitespace-pre-wrap mr-2">{m.text}</p>
                   <Dropdown message={m} />
                 </div>
               </div>
