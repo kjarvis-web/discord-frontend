@@ -30,14 +30,23 @@ const FriendsList = () => {
       <h1 className="font-bold text-2xl">Friends</h1>
       <div className="flex flex-col">
         {user.friends.map((friend) => {
-          const findChat = chats.find(
-            (chat) => chat.user1 === friend.id || chat.user2 === friend.id
-          );
-          return (
-            <Link key={friend.id} to={`/chats/${findChat.id}`}>
-              <button onClick={() => handleFriend(friend.id)}>{friend.username}</button>
-            </Link>
-          );
+          const findChat = chats.find((chat) => {
+            return chat.user1 === friend.id || chat.user2 === friend.id;
+          });
+
+          if (findChat) {
+            return (
+              <Link key={friend.id} to={`/chats/${findChat.id}`}>
+                <button onClick={() => handleFriend(friend.id)}>{friend.username}</button>
+              </Link>
+            );
+          } else {
+            return (
+              <Link key={friend.id} to={`/chats/new`}>
+                <button onClick={() => handleFriend(friend.id)}>{friend.username}</button>
+              </Link>
+            );
+          }
         })}
       </div>
     </div>
