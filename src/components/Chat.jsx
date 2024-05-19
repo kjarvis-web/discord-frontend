@@ -74,10 +74,15 @@ const Chat = () => {
             </div>
             {sortedMessages.map((m, i) => (
               <div key={i} className="flex flex-col mt-2 rounded">
-                <div className="flex gap-2 text-xs">
-                  <p className="font-bold">{m.user.username}</p>
+                <div
+                  className={
+                    m.user.username === user.username
+                      ? 'flex gap-2 text-xs font-bold text-green-500'
+                      : 'flex gap-2 text-xs font-bold text-blue-500'
+                  }
+                >
+                  <p>{m.user.username}</p>
                   <p>{m.date}</p>
-                  <p>{m.id}</p>
                 </div>
                 <div className="flex relative">
                   <p className="message text-lg whitespace-pre-wrap mr-2">{m.text}</p>
