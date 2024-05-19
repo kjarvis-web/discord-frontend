@@ -2,6 +2,7 @@ import axios from 'axios';
 import config from '../utils/config';
 
 const baseUrl = `${config.baseUrl}/chat`;
+const messageUrl = `${config.baseUrl}/message`;
 let token = null;
 const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
@@ -32,4 +33,13 @@ const addMessage = async (id, message) => {
   return response.data;
 };
 
-export default { getChat, addChat, setToken, addMessage };
+const editMessage = async (updatedMessage) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  const response = await axios.put(`${messageUrl}/${updatedMessage.id}`, updatedMessage, config);
+  return response.data;
+};
+
+export default { getChat, addChat, setToken, addMessage, editMessage };

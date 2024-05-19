@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { getLoggedUser, setRecipient } from '../reducers/userReducer';
+import { getLoggedUser } from '../reducers/userReducer';
 import { Link } from 'react-router-dom';
 import { getChat } from '../reducers/chatReducer';
 
@@ -17,9 +17,9 @@ const FriendsList = () => {
     dispatch(getChat());
   }, [dispatch, loginUser]);
 
-  const handleFriend = (user) => {
-    dispatch(setRecipient(user));
-  };
+  // const handleFriend = (user) => {
+  //   dispatch(setRecipient(user));
+  // };
 
   if (!loginUser) return <div>Log In</div>;
 
@@ -30,23 +30,11 @@ const FriendsList = () => {
       <h1 className="font-bold text-2xl">Friends</h1>
       <div className="flex flex-col">
         {user.friends.map((friend) => {
-          const findChat = chats.find((chat) => {
-            return chat.user1 === friend.id || chat.user2 === friend.id;
-          });
-
-          if (findChat) {
-            return (
-              <Link key={friend.id} to={`/chats/${findChat.id}`}>
-                <button onClick={() => handleFriend(friend.id)}>{friend.username}</button>
-              </Link>
-            );
-          } else {
-            return (
-              <Link key={friend.id} to={`/chats/new`}>
-                <button onClick={() => handleFriend(friend.id)}>{friend.username}</button>
-              </Link>
-            );
-          }
+          return (
+            <Link key={friend.id} to={`/user/${friend.id}`}>
+              <button>{friend.username}</button>
+            </Link>
+          );
         })}
       </div>
     </div>

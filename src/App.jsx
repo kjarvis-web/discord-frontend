@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chat from './components/Chat';
 import Homepage from './components/Homepage';
 import NewChat from './components/NewChat';
+import User from './components/User';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="/chats/:id" element={<Chat />} />
               <Route path="/chats/new" element={<NewChat />} />
+              <Route path="/user/:id" element={<User />} />
             </Routes>
           </div>
         </div>

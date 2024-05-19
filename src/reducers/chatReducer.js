@@ -28,11 +28,29 @@ const chatSlice = createSlice({
     appendChat(state, action) {
       return { ...state, chats: [...state.chats, action.payload] };
     },
+    editMessage(state, action) {
+      const findChat = state.chats.find((o) => o.id === action.payload.chatId);
+      const findMessage = findChat.messages.find((m) => m.id === action.payload.id);
+      const newMessage = { ...findMessage, text: action.payload.text };
+      const newChat = {
+        ...findChat,
+        messages: [...findChat.messages.filter((m) => m.id !== action.payload.id), newMessage],
+      };
+      const newChats = state.chats.filter((c) => c.id !== action.payload.chatId);
+
+      return { ...state, chats: [...newChats, newChat] };
+    },
   },
 });
 
-export const { setLoading, initializeChat, appendMessage, initializeMessages, appendChat } =
-  chatSlice.actions;
+export const {
+  setLoading,
+  initializeChat,
+  appendMessage,
+  initializeMessages,
+  appendChat,
+  editMessage,
+} = chatSlice.actions;
 
 export const getChat = () => {
   return async (dispatch) => {
@@ -71,6 +89,14 @@ export const addMessage = (id, message) => {
     } catch (error) {
       console.log('addMessage', error);
     }
+  };
+};
+
+export const updateMessage = (message) => {
+  return async (dispatch) => {
+    const newMessage = await chatService.editMessage(message);
+    console.log(newMessage);
+    dispatch(editMessage(newMessage));
   };
 };
 

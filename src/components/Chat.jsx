@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import ScrollToBottom from './ScrollToBottom';
 import io from 'socket.io-client';
 import { format } from 'date-fns';
+import Dropdown from './Dropdown';
 const socket = io.connect('http://localhost:3000');
 
 const Chat = () => {
@@ -58,25 +59,30 @@ const Chat = () => {
     };
 
     const { username } = users.find((u) => u.id === findUser.user1);
+    const sortedMessages = [...findUser.messages].sort((a, b) => a.created - b.created);
 
     return (
       <div className="flex flex-col h-full">
         <div className="bg-slate-800 flex flex-col mt-auto">
-          <div className="py-4">
+          <div className="py-4 bg-slate-700">
             <div className="flex flex-col mt-2 rounded">
               <div className="flex gap-2 text-xs">
                 <p className="font-bold">{username}</p>
                 <p>{findUser.date}</p>
               </div>
-              <p className="text-lg">{findUser.chat}</p>
+              <p className="message text-lg whitespace-pre-wrap">{findUser.chat}</p>
             </div>
-            {findUser.messages.map((m, i) => (
+            {sortedMessages.map((m, i) => (
               <div key={i} className="flex flex-col mt-2 rounded">
                 <div className="flex gap-2 text-xs">
                   <p className="font-bold">{m.user.username}</p>
                   <p>{m.date}</p>
+                  <p>{m.id}</p>
                 </div>
-                <p className="text-lg">{m.text}</p>
+                <div className="flex relative">
+                  <p className="message text-lg whitespace-pre-wrap mr-2">{m.text}</p>
+                  <Dropdown message={m} />
+                </div>
               </div>
             ))}
             <div className="pt-4 px-2 w-full">
