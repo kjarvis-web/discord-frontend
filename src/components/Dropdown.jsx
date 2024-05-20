@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { SlOptionsVertical, SlPencil, SlTrash } from 'react-icons/sl';
 import EditForm from './EditForm';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
 const Dropdown = ({ message }) => {
   const user = useSelector((state) => state.login.user);

@@ -9,6 +9,7 @@ import ScrollToBottom from './ScrollToBottom';
 import io from 'socket.io-client';
 import { format } from 'date-fns';
 import Dropdown from './Dropdown';
+import Reaction from './Reaction';
 const socket = io.connect('http://localhost:3000');
 
 const Chat = () => {
@@ -64,7 +65,7 @@ const Chat = () => {
     return (
       <div className="flex flex-col h-full">
         <div className="bg-slate-800 flex flex-col mt-auto">
-          <div className="py-4 bg-slate-700">
+          <div className="py-4 px-2 bg-slate-700">
             <div className="flex flex-col mt-2 rounded">
               <div className="flex gap-2 text-xs">
                 <p className="font-bold">{username}</p>
@@ -85,8 +86,9 @@ const Chat = () => {
                   <p>{m.date}</p>
                 </div>
                 <div className="flex relative">
-                  <p className="message text-base whitespace-pre-wrap mr-2">{m.text}</p>
+                  <p className="message text-lg whitespace-pre-wrap mr-2">{m.text}</p>
                   <Dropdown message={m} />
+                  {/* <Reaction message={m} /> */}
                 </div>
               </div>
             ))}
@@ -98,6 +100,7 @@ const Chat = () => {
                   onChange={(e) => setText(e.target.value)}
                   className="flex-grow bg-zinc-100 text-zinc-950 p-2 rounded mr-4 text-sm outline-none"
                   autoFocus
+                  required
                 />
                 <button
                   type="submit"

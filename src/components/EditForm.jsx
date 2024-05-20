@@ -31,7 +31,7 @@ const EditForm = ({ message, setOpen }) => {
         className="text-zinc-950 rounded text-sm w-full h-full outline-none p-1"
       />
       <button
-        className="absolute text-xs border border-zinc-900 text-zinc-900 rounded-full bottom-0 right-5 p-1 my-1"
+        className="absolute text-sm text-zinc-100 bg-zinc-800 bottom-0 right-0 p-1"
         type="submit"
       >
         Submit
