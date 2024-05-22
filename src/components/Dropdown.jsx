@@ -46,7 +46,10 @@ const Dropdown = ({ message }) => {
           {edit && (
             <div className="edit flex justify-between relative h-full bg-slate-700">
               <EditForm message={message} setOpen={setOpen} />
-              <SlOptionsVertical onClick={toggleMenu} className="w-4 h-4" />
+              <SlOptionsVertical
+                onClick={toggleMenu}
+                className="w-4 h-4 hover:text-slate-800 hover:cursor-pointer"
+              />
             </div>
           )}
         </>
