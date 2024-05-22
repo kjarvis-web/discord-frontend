@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, logout } from '../reducers/loginReducer';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -49,6 +50,11 @@ const LoginForm = () => {
             Log In
           </button>
         </form>
+        <div className="text-center mt-8">
+          <Link to={'/signup'} className="hover:underline">
+            <p>Don&apos;t have an account? Sign up here.</p>
+          </Link>
+        </div>
       </div>
     );
 

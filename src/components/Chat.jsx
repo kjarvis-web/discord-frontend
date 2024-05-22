@@ -9,7 +9,7 @@ import ScrollToBottom from './ScrollToBottom';
 import io from 'socket.io-client';
 import { format } from 'date-fns';
 import Dropdown from './Dropdown';
-import Reaction from './Reaction';
+
 const socket = io.connect('http://localhost:3000');
 
 const Chat = () => {
@@ -88,7 +88,6 @@ const Chat = () => {
                 <div className="flex relative">
                   <p className="message text-lg whitespace-pre-wrap mr-2">{m.text}</p>
                   <Dropdown message={m} />
-                  {/* <Reaction message={m} /> */}
                 </div>
               </div>
             ))}

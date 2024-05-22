@@ -9,6 +9,7 @@ import Chat from './components/Chat';
 import Homepage from './components/Homepage';
 import NewChat from './components/NewChat';
 import User from './components/User';
+import Signup from './components/Signup';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
               <Route path="/chats/:id" element={<Chat />} />
               <Route path="/chats/new" element={<NewChat />} />
               <Route path="/user/:id" element={<User />} />
+              <Route path="/signup" element={<Signup />} />
             </Routes>
           </div>
         </div>
