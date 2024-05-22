@@ -79,6 +79,13 @@ const Chat = () => {
       setText('');
     };
 
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend(e);
+      }
+    };
+
     const { username } = users.find((u) => u.id === findUser.user1);
     const sortedMessages = [...findUser.messages].sort((a, b) => a.created - b.created);
 
@@ -113,17 +120,17 @@ const Chat = () => {
             ))}
             <div className="pt-4 px-2 w-full">
               <form className="flex items-center" onSubmit={handleSend}>
-                <input
-                  type="text"
+                <textarea
                   value={text}
+                  onKeyDown={handleKeyDown}
                   onChange={(e) => setText(e.target.value)}
-                  className="flex-grow bg-zinc-100 text-zinc-950 p-2 rounded mr-4 text-sm outline-none"
+                  className="flex-grow bg-zinc-100 text-zinc-950 p-2 rounded mr-4 text-sm outline-none resize-none h-10"
                   autoFocus
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-sm"
+                  className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-sm h-10"
                 >
                   Send
                 </button>
