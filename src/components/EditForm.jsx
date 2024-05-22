@@ -30,7 +30,7 @@ const EditForm = ({ message, setOpen }) => {
   return (
     <form onSubmit={handleEdit} className="w-full relative">
       <textarea
-        type="text"
+        required
         value={text}
         onChange={(e) => setText(e.target.value)}
         className="text-zinc-950 rounded text-sm w-full h-full outline-none p-1 resize-none rounded-tr-lg rounded-br-lg"

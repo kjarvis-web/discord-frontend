@@ -92,7 +92,7 @@ const Chat = () => {
     return (
       <div className="flex flex-col h-full">
         <div className="bg-slate-800 flex flex-col mt-auto">
-          <div className="py-4 px-2 bg-slate-700">
+          <div className="py-4 px-2 bg-slate-950">
             <div className="flex flex-col mt-2 rounded">
               <div className="flex gap-2 text-xs">
                 <p className="font-bold">{username}</p>
@@ -105,8 +105,8 @@ const Chat = () => {
                 <div
                   className={
                     m.user.username === user.username
-                      ? 'flex gap-2 text-xs font-bold text-green-500'
-                      : 'flex gap-2 text-xs font-bold text-blue-500'
+                      ? 'flex gap-2 text-xs font-bold text-zinc-400'
+                      : 'flex gap-2 text-xs font-bold text-blue-700'
                   }
                 >
                   <p>{m.user.username}</p>

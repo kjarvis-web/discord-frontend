@@ -25,7 +25,7 @@ const Dropdown = ({ message }) => {
           <div className="edit absolute right-0">
             <SlOptionsVertical
               onClick={toggleMenu}
-              className="w-4 h-4 hover:text-slate-800 hover:cursor-pointer"
+              className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
             />
             {open && !edit && (
               <ul className="absolute right-2 bg-slate-800 rounded p-3 mt-1 text-xs font-bold flex flex-col gap-2 z-10">
@@ -44,11 +44,11 @@ const Dropdown = ({ message }) => {
             )}
           </div>
           {edit && (
-            <div className="edit flex justify-between relative h-full bg-slate-700">
+            <div className="edit flex justify-between relative h-full bg-slate-950">
               <EditForm message={message} setOpen={setOpen} />
               <SlOptionsVertical
                 onClick={toggleMenu}
-                className="w-4 h-4 hover:text-slate-800 hover:cursor-pointer"
+                className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
               />
             </div>
           )}
@@ -57,7 +57,7 @@ const Dropdown = ({ message }) => {
         <div className="edit absolute right-0">
           <SlOptionsVertical
             onClick={toggleMenu}
-            className="w-4 h-4 hover:text-slate-800 hover:cursor-pointer"
+            className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
           />
         </div>
       )}

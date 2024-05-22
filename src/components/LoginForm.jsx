@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, logout } from '../reducers/loginReducer';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { HiMiniArrowLeftStartOnRectangle } from 'react-icons/hi2';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -33,6 +34,7 @@ const LoginForm = () => {
             placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
             className="col-start-4 col-span-2 rounded p-1 outline-none"
+            autoFocus
           />
           <input
             type="password"
@@ -61,8 +63,12 @@ const LoginForm = () => {
   return (
     <div className="flex gap-4 items-center text-sm">
       <p>{user.username} logged in</p>
-      <button onClick={handleLogout} className="bg-slate-200 rounded-full p-2 text-zinc-900">
-        Log Out
+      <button
+        onClick={handleLogout}
+        className="bg-slate-200 hover:bg-slate-100 rounded-full p-2 text-zinc-900 flex items-center"
+      >
+        <HiMiniArrowLeftStartOnRectangle className="w-5 h-5" />
+        <span>Log Out</span>
       </button>
     </div>
   );

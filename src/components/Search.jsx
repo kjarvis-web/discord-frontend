@@ -4,6 +4,7 @@ import { getUsers, setRecipient } from '../reducers/userReducer';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { HiMiniPlusSmall } from 'react-icons/hi2';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -36,8 +37,10 @@ const Search = () => {
     setQuery('');
   };
   return (
-    <div className="find-user text-sm relative">
-      <label htmlFor="search">New Message: </label>
+    <div className="find-user text-sm relative flex items-center">
+      <label htmlFor="search">
+        <HiMiniPlusSmall className="w-8 h-8" />
+      </label>
       <input
         type="text"
         placeholder="type in username"

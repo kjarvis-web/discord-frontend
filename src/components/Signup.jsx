@@ -40,6 +40,7 @@ const Signup = () => {
       {error && <div className="text-center text-red-500">{error}</div>}
       <form onSubmit={handleSubmit} className="grid grid-cols-8 gap-y-2 text-zinc-950 text-sm">
         <input
+          autoFocus
           type="text"
           value={username}
           placeholder="Username"

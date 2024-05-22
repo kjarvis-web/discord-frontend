@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Search from './Search';
 import { useSelector } from 'react-redux';
 import LoginForm from './LoginForm';
+import Notifications from './Notifications';
 
 const Navbar = () => {
   const loginUser = useSelector((state) => state.login.user);
@@ -14,7 +15,10 @@ const Navbar = () => {
         {loginUser && (
           <>
             <Search />
-            <LoginForm />
+            <div className="flex items-center gap-4">
+              <Notifications />
+              <LoginForm />
+            </div>
           </>
         )}
       </div>
