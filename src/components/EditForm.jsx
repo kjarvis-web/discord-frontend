@@ -3,10 +3,14 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateMessage } from '../reducers/chatReducer';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import io from 'socket.io-client';
+const socket = io.connect('http://localhost:3000');
 
 const EditForm = ({ message, setOpen }) => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
+  const id = useParams().id;
   const handleEdit = (e) => {
     e.preventDefault();
     const newMessage = {
@@ -15,6 +19,7 @@ const EditForm = ({ message, setOpen }) => {
       chatId: message.chatId,
     };
     dispatch(updateMessage(newMessage));
+    socket.emit('edit_message', id, newMessage);
     setOpen(false);
   };
 

@@ -40,6 +40,12 @@ const chatSlice = createSlice({
 
       return { ...state, chats: [...newChats, newChat] };
     },
+    setNotify(state, action) {
+      const findChat = state.chats.find((o) => o.id === action.payload.chatId);
+      const addNotify = { ...findChat, notify: action.payload.notify };
+      const newChats = state.chats.filter((o) => o.id !== action.payload.chatId);
+      return { ...state, chats: [...newChats, addNotify] };
+    },
   },
 });
 
@@ -50,6 +56,7 @@ export const {
   initializeMessages,
   appendChat,
   editMessage,
+  setNotify,
 } = chatSlice.actions;
 
 export const getChat = () => {
@@ -94,9 +101,25 @@ export const addMessage = (id, message) => {
 
 export const updateMessage = (message) => {
   return async (dispatch) => {
-    const newMessage = await chatService.editMessage(message);
-    console.log(newMessage);
-    dispatch(editMessage(newMessage));
+    try {
+      const newMessage = await chatService.editMessage(message);
+      console.log(newMessage);
+      dispatch(editMessage(newMessage));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateNotify = (chat) => {
+  return async (dispatch) => {
+    try {
+      const newChat = await chatService.notify(chat);
+      console.log(newChat);
+      dispatch(setNotify(newChat));
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 

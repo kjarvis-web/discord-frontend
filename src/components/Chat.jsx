@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { addMessage, appendMessage, getChat } from '../reducers/chatReducer';
+import {
+  addMessage,
+  appendMessage,
+  editMessage,
+  getChat,
+  updateNotify,
+} from '../reducers/chatReducer';
 import { useEffect } from 'react';
 import { getLoggedUser } from '../reducers/userReducer';
 import { useParams } from 'react-router-dom';
@@ -27,22 +33,36 @@ const Chat = () => {
       dispatch(getLoggedUser(loginUser.id));
     }
     dispatch(getChat());
-  }, [dispatch, loginUser]);
+    socket.emit('join_room', id);
+  }, [dispatch, loginUser, id]);
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
       dispatch(appendMessage(data));
+      console.log('msg');
+      if (id !== data.chatId) {
+        console.log('notify', data);
+        const { notify } = chats.find((c) => c.id === data.chatId);
+        const newChat = { notify: notify + 1, id: data.chatId };
+
+        dispatch(updateNotify(newChat));
+      }
+    });
+
+    socket.on('receive_edit', (data) => {
+      dispatch(editMessage(data));
+      console.log(data);
     });
 
     return () => socket.off('receive_message');
-  }, [dispatch]);
+  }, [dispatch, id, chats]);
 
   if (loading) return <div>loading...</div>;
   const findUser = chats.find((c) => c.id === id);
   if (!findUser) {
     return <div>404</div>;
   } else {
-    socket.emit('join_room', id);
+    // socket.emit('join_room', id);
 
     const handleSend = (e) => {
       const date = new Date();
@@ -86,7 +106,7 @@ const Chat = () => {
                   <p>{m.date}</p>
                 </div>
                 <div className="flex relative">
-                  <p className="message text-lg whitespace-pre-wrap mr-2">{m.text}</p>
+                  <p className="message text-lg whitespace-pre-wrap mr-2 overflow-auto">{m.text}</p>
                   <Dropdown message={m} />
                 </div>
               </div>
