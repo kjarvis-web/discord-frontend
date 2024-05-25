@@ -3,11 +3,13 @@ import { useState } from 'react';
 import { SlOptionsVertical, SlPencil, SlTrash } from 'react-icons/sl';
 import EditForm from './EditForm';
 import { useSelector } from 'react-redux';
+import { useRef } from 'react';
 
 const Dropdown = ({ message }) => {
   const user = useSelector((state) => state.login.user);
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
+  const menu = useRef(null);
   const toggleMenu = () => {
     setOpen(!open);
     setEdit(false);
@@ -17,9 +19,18 @@ const Dropdown = ({ message }) => {
     setEdit(!edit);
   };
 
+  const closeMenus = (e) => {
+    if (open && !menu.current?.contains(e.target)) {
+      setOpen(!open);
+      setEdit(false);
+    }
+  };
+
+  document.addEventListener('mousedown', closeMenus);
+
   if (user.username !== message.user.username) return null;
   return (
-    <div className="absolute w-full h-full">
+    <div ref={menu} className="absolute w-full h-full">
       {open ? (
         <>
           <div className="edit absolute right-0">
