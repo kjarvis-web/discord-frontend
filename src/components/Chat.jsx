@@ -101,7 +101,10 @@ const Chat = () => {
               <p className="message text-lg whitespace-pre-wrap">{findUser.chat}</p>
             </div>
             {sortedMessages.map((m, i) => (
-              <div key={i} className="flex flex-col mt-2 rounded">
+              <div
+                key={i}
+                className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded"
+              >
                 <div
                   className={
                     m.user.username === user.username
@@ -112,7 +115,7 @@ const Chat = () => {
                   <p>{m.user.username}</p>
                   <p>{m.date}</p>
                 </div>
-                <div className="flex relative hover:bg-zinc-800 hover:rounded hover:bg-opacity-100 transition duration-100">
+                <div className="flex relative">
                   <p className="message text-lg whitespace-pre-wrap mr-2 overflow-auto">{m.text}</p>
                   <Dropdown message={m} />
                 </div>

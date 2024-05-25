@@ -35,10 +35,10 @@ const Dropdown = ({ message }) => {
 
   if (user.username !== message.user.username)
     return (
-      <div ref={menu} className="absolute w-full h-full flex items-center">
+      <div ref={menu} className="absolute w-full h-full flex">
         {open ? (
           <>
-            <div className="edit absolute right-0 top-1">
+            <div className="edit absolute right-0">
               <SlOptionsVertical
                 onClick={toggleMenu}
                 className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
@@ -57,7 +57,7 @@ const Dropdown = ({ message }) => {
             </div>
           </>
         ) : (
-          <div className="edit absolute right-0 top-1">
+          <div className="edit absolute right-0">
             <SlOptionsVertical
               onClick={toggleMenu}
               className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
@@ -70,7 +70,7 @@ const Dropdown = ({ message }) => {
     <div ref={menu} className="absolute w-full h-full flex">
       {open ? (
         <>
-          <div className="edit absolute right-0 top-1">
+          <div className="edit absolute right-0">
             <SlOptionsVertical
               onClick={toggleMenu}
               className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
@@ -107,7 +107,7 @@ const Dropdown = ({ message }) => {
           )}
         </>
       ) : (
-        <div className="edit absolute right-0 top-1">
+        <div className="edit absolute right-0">
           <SlOptionsVertical
             onClick={toggleMenu}
             className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
