@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { SlOptionsVertical, SlPencil, SlTrash } from 'react-icons/sl';
+import { SlOptionsVertical } from 'react-icons/sl';
 import EditForm from './EditForm';
 import { useSelector } from 'react-redux';
 import { useRef } from 'react';
+import { FaClipboard, FaEdit, FaTrash } from 'react-icons/fa';
 
 const Dropdown = ({ message }) => {
   const user = useSelector((state) => state.login.user);
@@ -26,9 +27,45 @@ const Dropdown = ({ message }) => {
     }
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(message.text);
+  };
+
   document.addEventListener('mousedown', closeMenus);
 
-  if (user.username !== message.user.username) return null;
+  if (user.username !== message.user.username)
+    return (
+      <div ref={menu} className="absolute w-full h-full">
+        {open ? (
+          <>
+            <div className="edit absolute right-0">
+              <SlOptionsVertical
+                onClick={toggleMenu}
+                className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
+              />
+              <ul className="absolute right-2 bg-slate-800 rounded p-3 mt-1 text-xs font-bold flex flex-col gap-2 z-10">
+                <li>
+                  <button
+                    onClick={handleCopy}
+                    className="flex gap-2 items-center hover:text-blue-500"
+                  >
+                    <FaClipboard className="w-3 h-3" />
+                    Copy
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </>
+        ) : (
+          <div className="edit absolute right-0">
+            <SlOptionsVertical
+              onClick={toggleMenu}
+              className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
+            />
+          </div>
+        )}
+      </div>
+    );
   return (
     <div ref={menu} className="absolute w-full h-full">
       {open ? (
@@ -40,16 +77,25 @@ const Dropdown = ({ message }) => {
             />
             {open && !edit && (
               <ul className="absolute right-2 bg-slate-800 rounded p-3 mt-1 text-xs font-bold flex flex-col gap-2 z-10">
+                <li>
+                  <button
+                    onClick={handleCopy}
+                    className="flex gap-2 items-center hover:text-blue-500"
+                  >
+                    <FaClipboard className="w-3 h-3" />
+                    Copy
+                  </button>
+                </li>
                 <li
                   className="hover:cursor-pointer hover:text-blue-500 flex items-center gap-2"
                   onClick={toggleEdit}
                 >
-                  <SlPencil className="w-3 h-3" />
-                  <p>Edit</p>
+                  <FaEdit className="w-3 h-3" />
+                  <button>Edit</button>
                 </li>
                 <li className="hover:cursor-pointer hover:text-blue-500 flex items-center gap-2">
-                  <SlTrash className="w-3 h-3" />
-                  <p>Delete</p>
+                  <FaTrash className="w-3 h-3" />
+                  <button>Delete</button>
                 </li>
               </ul>
             )}
