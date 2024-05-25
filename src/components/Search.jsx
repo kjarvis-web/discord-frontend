@@ -37,14 +37,14 @@ const Search = () => {
     setQuery('');
   };
 
-  const handleUser = (id) => {
+  const handleUser = (e, id) => {
+    e.preventDefault();
     navigate(`user/${id}`);
+    setQuery('');
   };
   return (
-    <div className="find-user text-sm flex items-center relative">
-      <label htmlFor="search">
-        <HiMiniPlusSmall className="w-8 h-8" />
-      </label>
+    <div className="find-user text-sm relative">
+      <label htmlFor="search">{/* <HiMiniPlusSmall className="w-8 h-8" /> */}</label>
       <input
         type="text"
         placeholder="type in username"
@@ -54,14 +54,14 @@ const Search = () => {
         onChange={(e) => setQuery(e.target.value)}
       />
       {query.length > 0 && (
-        <div className="absolute flex flex-col bg-slate-800 w-full top-11 rounded-b">
+        <div className="absolute flex flex-col bg-slate-800 w-full rounded-b z-10">
           {results.map((u) => (
             <form
               key={u.id}
               className="flex justify-between mt-4 p-4"
               onSubmit={(e) => handleSubmit(e, u)}
             >
-              <button onClick={() => handleUser(u.id)}>{u.username}</button>
+              <button onClick={(e) => handleUser(e, u.id)}>{u.username}</button>
               <button type="submit" className="bg-slate-300 text-zinc-950 rounded">
                 Add
               </button>

@@ -28,19 +28,21 @@ const EditForm = ({ message, setOpen }) => {
   }, [message.text]);
 
   return (
-    <form onSubmit={handleEdit} className="w-full relative">
+    <form onSubmit={handleEdit} className="w-full flex flex-col items-center relative">
       <textarea
         required
         value={text}
         onChange={(e) => setText(e.target.value)}
         className="text-zinc-950 rounded text-sm w-full h-full outline-none p-1 resize-none rounded-tr-lg rounded-br-lg"
       />
-      <button
-        className="absolute text-sm text-zinc-100 bg-zinc-800 hover:bg-zinc-700 hover:border-zinc-700 bottom-0 right-0 rounded-tr rounded-br border border-zinc-800 h-full px-2"
-        type="submit"
-      >
-        Edit
-      </button>
+      <div className="flex absolute bottom-0 right-0 text-sm h-6">
+        <button className="bg-zinc-900 px-2 rounded-tl" type="submit">
+          Edit
+        </button>
+        <button className="bg-red-500 px-2 rounded-br-lg" onClick={() => setOpen(false)}>
+          Cancel
+        </button>
+      </div>
     </form>
   );
 };

@@ -112,7 +112,7 @@ const Chat = () => {
                   <p>{m.user.username}</p>
                   <p>{m.date}</p>
                 </div>
-                <div className="flex relative">
+                <div className="flex relative hover:bg-zinc-800 hover:rounded hover:bg-opacity-100 transition duration-100">
                   <p className="message text-lg whitespace-pre-wrap mr-2 overflow-auto">{m.text}</p>
                   <Dropdown message={m} />
                 </div>

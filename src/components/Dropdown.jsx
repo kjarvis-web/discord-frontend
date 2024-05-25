@@ -35,21 +35,21 @@ const Dropdown = ({ message }) => {
 
   if (user.username !== message.user.username)
     return (
-      <div ref={menu} className="absolute w-full h-full">
+      <div ref={menu} className="absolute w-full h-full flex items-center">
         {open ? (
           <>
-            <div className="edit absolute right-0">
+            <div className="edit absolute right-0 top-1">
               <SlOptionsVertical
                 onClick={toggleMenu}
                 className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
               />
-              <ul className="absolute right-2 bg-slate-800 rounded p-3 mt-1 text-xs font-bold flex flex-col gap-2 z-10">
+              <ul className="absolute right-2 bg-slate-800 rounded p-3 mt-1 text-sm font-semibold flex gap-4 z-10">
                 <li>
                   <button
                     onClick={handleCopy}
                     className="flex gap-2 items-center hover:text-blue-500"
                   >
-                    <FaClipboard className="w-3 h-3" />
+                    <FaClipboard className="w-4 h-4" />
                     Copy
                   </button>
                 </li>
@@ -57,7 +57,7 @@ const Dropdown = ({ message }) => {
             </div>
           </>
         ) : (
-          <div className="edit absolute right-0">
+          <div className="edit absolute right-0 top-1">
             <SlOptionsVertical
               onClick={toggleMenu}
               className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
@@ -67,22 +67,22 @@ const Dropdown = ({ message }) => {
       </div>
     );
   return (
-    <div ref={menu} className="absolute w-full h-full">
+    <div ref={menu} className="absolute w-full h-full flex">
       {open ? (
         <>
-          <div className="edit absolute right-0">
+          <div className="edit absolute right-0 top-1">
             <SlOptionsVertical
               onClick={toggleMenu}
               className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
             />
             {open && !edit && (
-              <ul className="absolute right-2 bg-slate-800 rounded p-3 mt-1 text-xs font-bold flex flex-col gap-2 z-10">
+              <ul className="absolute right-2 bg-slate-800 rounded p-3 mt-1 text-sm font-semibold flex gap-4 z-10">
                 <li>
                   <button
                     onClick={handleCopy}
                     className="flex gap-2 items-center hover:text-blue-500"
                   >
-                    <FaClipboard className="w-3 h-3" />
+                    <FaClipboard className="w-4 h-4" />
                     Copy
                   </button>
                 </li>
@@ -90,28 +90,24 @@ const Dropdown = ({ message }) => {
                   className="hover:cursor-pointer hover:text-blue-500 flex items-center gap-2"
                   onClick={toggleEdit}
                 >
-                  <FaEdit className="w-3 h-3" />
+                  <FaEdit className="w-4 h-4" />
                   <button>Edit</button>
                 </li>
                 <li className="hover:cursor-pointer hover:text-blue-500 flex items-center gap-2">
-                  <FaTrash className="w-3 h-3" />
+                  <FaTrash className="w-4 h-4" />
                   <button>Delete</button>
                 </li>
               </ul>
             )}
           </div>
           {edit && (
-            <div className="edit flex justify-between relative h-full bg-slate-950">
+            <div className="edit flex justify-between relative h-full w-full bg-slate-950">
               <EditForm message={message} setOpen={setOpen} />
-              <SlOptionsVertical
-                onClick={toggleMenu}
-                className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
-              />
             </div>
           )}
         </>
       ) : (
-        <div className="edit absolute right-0">
+        <div className="edit absolute right-0 top-1">
           <SlOptionsVertical
             onClick={toggleMenu}
             className="w-4 h-4 hover:text-blue-600 hover:cursor-pointer"
