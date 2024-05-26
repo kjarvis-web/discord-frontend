@@ -42,10 +42,10 @@ const Chat = () => {
       console.log('msg');
       if (id !== data.chatId) {
         console.log('notify', data);
-        const { notify } = chats.find((c) => c.id === data.chatId);
-        const newChat = { notify: notify + 1, id: data.chatId };
+        // const chat = chats.find((c) => c.id === data.chatId);
+        // const newChat = { ...chat, notify: chat.notify + 1 };
 
-        dispatch(updateNotify(newChat));
+        // dispatch(updateNotify(newChat));
       }
     });
 
@@ -58,7 +58,7 @@ const Chat = () => {
 
   if (loading) return <div>loading...</div>;
   const findUser = chats.find((c) => c.id === id);
-  console.log(findUser);
+
   if (!findUser) {
     return <div>404</div>;
   } else {

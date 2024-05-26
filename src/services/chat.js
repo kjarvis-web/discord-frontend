@@ -47,4 +47,4 @@ const notify = async (updatedChat) => {
   return response.data;
 };
 
-export default { getChat, addChat, setToken, addMessage, editMessage, notify };
+export default { getChat, addChat, setToken, addMessage, editMessage, notify, token };

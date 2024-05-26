@@ -35,9 +35,12 @@ const ChatList = () => {
           );
           return (
             user && (
-              <Link key={c.id} to={`/chats/${c.id}`} onClick={() => handleNotify(c.id)}>
-                <button>{user.username}</button>
-              </Link>
+              <div key={c.id} className="flex">
+                <Link to={`/chats/${c.id}`} onClick={() => handleNotify(c.id)}>
+                  <button>{user.username}</button>
+                </Link>
+                {c.notify !== 0 && <p>{c.notify}</p>}
+              </div>
             )
           );
         })}

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../utils/config';
+
 const baseUrl = `${config.baseUrl}/users`;
 
 const getUsers = async () => {
@@ -18,4 +19,17 @@ const getLoggedUser = async (id) => {
   return request.data;
 };
 
-export default { getUsers, createUser, getLoggedUser };
+const sendFriendRequest = async (id, friendRequest, config) => {
+  // const config = {
+  //   headers: { Authorization: token },
+  // };
+  const response = await axios.post(`${baseUrl}/${id}/friend_request`, friendRequest, config);
+  return response.data;
+};
+
+const acceptFriend = async (id) => {
+  const response = axios.post(`${baseUrl}/${id}/accept_friend_request`);
+  return response.data;
+};
+
+export default { getUsers, createUser, getLoggedUser, sendFriendRequest, acceptFriend };

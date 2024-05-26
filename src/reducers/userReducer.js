@@ -23,11 +23,30 @@ const userSlice = createSlice({
     setSuccess(state, action) {
       return { ...state, success: action.payload };
     },
+    setFriend(state, action) {
+      // send friend request
+
+      const findUser = state.allUsers.find((u) => u.id === action.payload.id);
+      const findRequest = action.payload.friendRequests.find(
+        (fr) => fr.from === state.loggedUser.id
+      );
+      const newUser = { ...findUser, friendRequests: [...findUser.friendRequests, findRequest] };
+      const newUsers = state.allUsers.filter((u) => u.id !== action.payload.id);
+      console.log(newUsers);
+      return { ...state, allUsers: [...newUsers, newUser] };
+    },
   },
 });
 
-export const { initializeUsers, appendUser, setError, setRecipient, setLoggedUser, setSuccess } =
-  userSlice.actions;
+export const {
+  initializeUsers,
+  appendUser,
+  setError,
+  setRecipient,
+  setLoggedUser,
+  setSuccess,
+  setFriend,
+} = userSlice.actions;
 
 export const getUsers = () => {
   return async (dispatch) => {
@@ -58,6 +77,29 @@ export const addUser = (newUser) => {
       setTimeout(() => {
         dispatch(setError(false));
       }, 5000);
+    }
+  };
+};
+
+export const sendFriendRequest = (id, obj, config) => {
+  return async (dispatch) => {
+    try {
+      const request = await userService.sendFriendRequest(id, obj, config);
+      console.log(request);
+      dispatch(setFriend(request));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const acceptFriendRequest = (id) => {
+  return async (dispatch) => {
+    try {
+      const request = await userService.acceptFriend(id);
+      dispatch(setFriend(request));
+    } catch (error) {
+      console.log(error);
     }
   };
 };
