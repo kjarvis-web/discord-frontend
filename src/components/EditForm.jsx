@@ -33,13 +33,13 @@ const EditForm = ({ message, setOpen }) => {
         required
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="text-zinc-950 rounded text-sm w-full h-full outline-none p-1 resize-none rounded-tr-lg rounded-br-lg"
+        className="text-zinc-950 rounded text-sm w-full h-full outline-none p-1 resize-none"
       />
       <div className="flex absolute bottom-0 right-0 text-sm h-7">
         <button className="bg-zinc-900 px-2" type="submit">
           Edit
         </button>
-        <button className="bg-red-500 px-2 rounded-r-md" onClick={() => setOpen(false)}>
+        <button className="bg-red-500 px-2 rounded-r" onClick={() => setOpen(false)}>
           Cancel
         </button>
       </div>

@@ -5,6 +5,8 @@ const Homepage = () => {
   const loginUser = useSelector((state) => state.login.user);
   const { allUsers } = useSelector((state) => state.users);
 
+  if (allUsers.length === 0) return <div>loading...</div>;
+
   if (!loginUser) {
     return (
       <div className="mt-8">
@@ -13,16 +15,17 @@ const Homepage = () => {
       </div>
     );
   }
+
   const user = allUsers.find((u) => u.id === loginUser.id);
-  // const friendRequests = user.friendRequests.filter((fr) => fr.status !== 'pending');
+  const friendRequests = user.friendRequests.filter((fr) => fr.status === 'pending');
   return (
     <div className="mt-8 text-center">
       <h1>Friend Requests</h1>
-      {/* {friendRequests.length > 0 ? (
+      {friendRequests.length > 0 ? (
         friendRequests.map((fr) => <p key={fr.id}>{fr.from}</p>)
       ) : (
         <p>empty</p>
-      )} */}
+      )}
     </div>
   );
 };

@@ -17,7 +17,6 @@ const User = () => {
     e.preventDefault();
     dispatch(setRecipient(id));
     const findChat = chats.find((chat) => chat.user1 === id || chat.user2 === id);
-    console.log(findChat);
     if (findChat) {
       navigate(`/chats/${findChat.id}`);
     } else {
@@ -31,10 +30,13 @@ const User = () => {
   const findFriend = user.friends.find((u) => u.id === loginUser.id);
 
   return (
-    <div className="flex flex-col">
-      <h1 className="font-semibold text-xl">{user.username}</h1>
+    <div className="flex flex-col items-center">
+      <div className="flex gap-4">
+        <h1 className="font-semibold text-xl">{user.username}</h1>
+        <button onClick={handleMessage}>Send Message</button>
+      </div>
+
       {findFriend ? <button>remove friend</button> : <button>send friend request</button>}
-      <button onClick={handleMessage}>Send Message</button>
     </div>
   );
 };
