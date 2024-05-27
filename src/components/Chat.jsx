@@ -42,10 +42,8 @@ const Chat = () => {
       console.log('msg');
       if (id !== data.chatId) {
         console.log('notify', data);
-        // const chat = chats.find((c) => c.id === data.chatId);
-        // const newChat = { ...chat, notify: chat.notify + 1 };
-
-        // dispatch(updateNotify(newChat));
+        const findChat = chats.find((c) => c.id === data.chatId);
+        dispatch(updateNotify({ notify: findChat.notify + 1, id: findChat.id}));
       }
     });
 

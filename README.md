@@ -10,4 +10,5 @@
 8. user is typing...
 9. fix search/add recipient
 10. Sign up page &#x2705;
-11. send friend requests from frontend
+11. send friend requests from frontend &#x2705;
+12. online indicator

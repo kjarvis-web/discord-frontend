@@ -41,9 +41,9 @@ const chatSlice = createSlice({
       return { ...state, chats: [...newChats, newChat] };
     },
     setNotify(state, action) {
-      const findChat = state.chats.find((o) => o.id === action.payload.chatId);
+      const findChat = state.chats.find((o) => o.id === action.payload.id);
       const addNotify = { ...findChat, notify: action.payload.notify };
-      const newChats = state.chats.filter((o) => o.id !== action.payload.chatId);
+      const newChats = state.chats.filter((o) => o.id !== action.payload.id);
       return { ...state, chats: [...newChats, addNotify] };
     },
   },

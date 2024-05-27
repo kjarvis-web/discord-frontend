@@ -25,11 +25,13 @@ const ChatList = () => {
 
   if (!loggedUser) return null;
 
+  const sorted = [...chats].sort((a, b) => a.created - b.created);
+
   return (
     <div className="chat-list">
       <h1 className="font-bold text-2xl">Chats</h1>
       <div className="flex flex-col">
-        {chats.map((c) => {
+        {sorted.map((c) => {
           const user = users.find(
             (u) => u.id !== loggedUser.id && (u.id === c.user1 || u.id === c.user2)
           );
