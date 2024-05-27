@@ -8,8 +8,10 @@ import { getChat } from '../reducers/chatReducer';
 const FriendsList = () => {
   const dispatch = useDispatch();
   const loginUser = useSelector((state) => state.login.user);
-  const user = useSelector((state) => state.users.loggedUser);
+  // const user = useSelector((state) => state.users.loggedUser);
   const { chats } = useSelector((state) => state.chat);
+  const users = useSelector((state) => state.users.allUsers);
+  const user = users.find((u) => u.id === loginUser.id);
   useEffect(() => {
     if (loginUser) {
       dispatch(getLoggedUser(loginUser.id));
@@ -17,13 +19,12 @@ const FriendsList = () => {
     dispatch(getChat());
   }, [dispatch, loginUser]);
 
-  // const handleFriend = (user) => {
-  //   dispatch(setRecipient(user));
-  // };
-
   if (!loginUser) return <div>Log In</div>;
 
   if (!user || !chats) return <div>loading...</div>;
+
+  console.log('loginUser', loginUser);
+  console.log('user', user);
 
   return (
     <div>

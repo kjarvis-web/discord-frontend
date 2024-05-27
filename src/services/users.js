@@ -20,15 +20,12 @@ const getLoggedUser = async (id) => {
 };
 
 const sendFriendRequest = async (id, friendRequest, config) => {
-  // const config = {
-  //   headers: { Authorization: token },
-  // };
   const response = await axios.post(`${baseUrl}/${id}/friend_request`, friendRequest, config);
   return response.data;
 };
 
-const acceptFriend = async (id) => {
-  const response = axios.post(`${baseUrl}/${id}/accept_friend_request`);
+const acceptFriend = async (id, obj, config) => {
+  const response = await axios.post(`${baseUrl}/${id}/accept_friend_request`, obj, config);
   return response.data;
 };
 
