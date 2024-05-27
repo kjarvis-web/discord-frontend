@@ -28,7 +28,7 @@ const FriendsList = () => {
   console.log('user', user);
 
   return (
-    <div>
+    <div className="p-2">
       <h1 className="font-bold text-2xl">Friends</h1>
       <div className="flex flex-col">
         {user.friends.map((friend) => {
