@@ -72,6 +72,10 @@ const userSlice = createSlice({
       };
       return { ...state, allUsers: [...newUsers, newUser] };
     },
+    rejectFriend(state, action) {
+      const newUsers = state.allUsers.filter((u) => u.id !== action.payload.id);
+      return { ...state, allUsers: [...newUsers, action.payload] };
+    },
   },
 });
 
@@ -84,6 +88,7 @@ export const {
   setSuccess,
   setFriend,
   acceptFriend,
+  rejectFriend,
 } = userSlice.actions;
 
 export const getUsers = () => {
@@ -136,6 +141,18 @@ export const acceptFriendRequest = (id, obj, config) => {
       const friendRequest = await userService.acceptFriend(id, obj, config);
       console.log(friendRequest);
       dispatch(acceptFriend(friendRequest));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const rejectFriendRequest = (id, obj, config) => {
+  return async (dispatch) => {
+    try {
+      const friendRequest = await userService.rejectFriend(id, obj, config);
+      console.log(friendRequest);
+      dispatch(rejectFriend(friendRequest));
     } catch (error) {
       console.log(error);
     }

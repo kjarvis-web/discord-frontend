@@ -29,4 +29,16 @@ const acceptFriend = async (id, obj, config) => {
   return response.data;
 };
 
-export default { getUsers, createUser, getLoggedUser, sendFriendRequest, acceptFriend };
+const rejectFriend = async (id, obj, config) => {
+  const response = await axios.post(`${baseUrl}/${id}/reject_friend_request`, obj, config);
+  return response.data;
+};
+
+export default {
+  getUsers,
+  createUser,
+  getLoggedUser,
+  sendFriendRequest,
+  acceptFriend,
+  rejectFriend,
+};

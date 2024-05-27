@@ -11,7 +11,7 @@ const FriendsList = () => {
   // const user = useSelector((state) => state.users.loggedUser);
   const { chats } = useSelector((state) => state.chat);
   const users = useSelector((state) => state.users.allUsers);
-  const user = users.find((u) => u.id === loginUser.id);
+
   useEffect(() => {
     if (loginUser) {
       dispatch(getLoggedUser(loginUser.id));
@@ -20,6 +20,7 @@ const FriendsList = () => {
   }, [dispatch, loginUser]);
 
   if (!loginUser) return <div>Log In</div>;
+  const user = users.find((u) => u.id === loginUser.id);
 
   if (!user || !chats) return <div>loading...</div>;
 

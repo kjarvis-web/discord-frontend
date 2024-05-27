@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import LoginForm from './LoginForm';
 import { useDispatch } from 'react-redux';
-import { acceptFriendRequest } from '../reducers/userReducer';
+import { acceptFriendRequest, rejectFriendRequest } from '../reducers/userReducer';
 
 const Homepage = () => {
   const loginUser = useSelector((state) => state.login.user);
@@ -19,14 +19,19 @@ const Homepage = () => {
     );
   }
 
-  const handleAccept = (from) => {
+  const handleAccept = (id) => {
     const config = {
       headers: { Authorization: `Bearer ${loginUser.token}` },
     };
-    dispatch(acceptFriendRequest(from, { to: loginUser.id, from: from }, config));
+    dispatch(acceptFriendRequest(id, {}, config));
   };
 
-  const handleReject = () => {};
+  const handleReject = (id) => {
+    const config = {
+      headers: { Authorization: `Bearer ${loginUser.token}` },
+    };
+    dispatch(rejectFriendRequest(id, {}, config));
+  };
 
   const user = allUsers.find((u) => u.id === loginUser.id);
   const friendRequests = user.friendRequests.filter((fr) => fr.status === 'pending');
@@ -38,8 +43,8 @@ const Homepage = () => {
           <div key={fr.id} className="bg-zinc-600 rounded">
             <p>friend request: {fr.from}</p>
             <div className="flex items-center justify-center gap-4">
-              <button onClick={() => handleAccept(fr.from)}>accept</button>
-              <button onClick={handleReject}>reject</button>
+              <button onClick={() => handleAccept(fr.from)}>Accept</button>
+              <button onClick={() => handleReject(fr.from)}>Reject</button>
             </div>
           </div>
         ))

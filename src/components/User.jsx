@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getUsers, sendFriendRequest, setRecipient } from '../reducers/userReducer';
+import Homepage from './Homepage';
 
 const User = () => {
   const users = useSelector((state) => state.users.allUsers);
@@ -32,6 +33,8 @@ const User = () => {
   };
 
   if (users.length === 0) return <div>loading...</div>;
+
+  if (id === loginUser.id) return <Homepage />;
 
   const user = users.find((u) => u.id === id);
   const findFriend = user.friends.find((u) => u.id === loginUser.id);
