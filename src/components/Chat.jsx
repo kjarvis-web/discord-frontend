@@ -31,9 +31,11 @@ const Chat = () => {
   useEffect(() => {
     if (loginUser) {
       dispatch(getLoggedUser(loginUser.id));
+      socket.emit('join_room', id);
+      dispatch(getChat());
+    } else {
+      socket.emit('leave_all');
     }
-    dispatch(getChat());
-    socket.emit('join_room', id);
   }, [dispatch, loginUser, id]);
 
   useEffect(() => {
@@ -43,7 +45,7 @@ const Chat = () => {
       if (id !== data.chatId) {
         console.log('notify', data);
         const findChat = chats.find((c) => c.id === data.chatId);
-        dispatch(updateNotify({ notify: findChat.notify + 1, id: findChat.id}));
+        dispatch(updateNotify({ notify: findChat.notify + 1, id: findChat.id }));
       }
     });
 

@@ -4,6 +4,8 @@ import { loginUser, logout } from '../reducers/loginReducer';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { HiMiniArrowLeftStartOnRectangle } from 'react-icons/hi2';
+import io from 'socket.io-client';
+const socket = io.connect('http://localhost:3000');
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -22,6 +24,7 @@ const LoginForm = () => {
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');
+    socket.emit('leave_room');
   };
 
   if (!user)

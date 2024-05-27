@@ -29,7 +29,7 @@ const ChatList = () => {
 
   return (
     <div className="chat-list">
-      <h1 className="font-bold text-2xl">Chats</h1>
+      <h1 className="font-bold text-2xl p-2">Chats</h1>
       <div className="flex flex-col">
         {sorted.map((c) => {
           const user = users.find(
@@ -37,11 +37,18 @@ const ChatList = () => {
           );
           return (
             user && (
-              <div key={c.id} className="flex">
+              <div
+                key={c.id}
+                className="flex justify-between p-2 hover:bg-zinc-800 hover:bg-opacity-50 rounded"
+              >
                 <Link to={`/chats/${c.id}`} onClick={() => handleNotify(c.id)}>
-                  <button>{user.username}</button>
+                  <button className="flex">{user.username}</button>
                 </Link>
-                {c.notify !== 0 && <p>{c.notify}</p>}
+                {c.notify !== 0 && (
+                  <span className="rounded-full bg-red-500 h-5 w-5 font-semibold text-xs flex items-center justify-center">
+                    {c.notify}
+                  </span>
+                )}
               </div>
             )
           );
