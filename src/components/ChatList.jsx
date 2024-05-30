@@ -11,9 +11,9 @@ const ChatList = () => {
   const loggedUser = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
 
-  const handleNotify = (id) => {
-    dispatch(updateNotify({ notify: 0, id: id }));
-  };
+  // const handleNotify = (id) => {
+  //   dispatch(updateNotify({ notify: 0, id: id }));
+  // };
 
   useEffect(() => {
     if (!users) {
@@ -37,8 +37,8 @@ const ChatList = () => {
           );
           return (
             user && (
-              <Link key={c.id} to={`/chats/${c.id}`} onClick={() => handleNotify(c.id)}>
-                <div className="flex justify-between p-2 hover:bg-zinc-800 hover:bg-opacity-40 rounded">
+              <Link key={c.id} to={`/chats/${c.id}`}>
+                <div className="flex justify-between p-2 hover:bg-zinc-800 hover:bg-opacity-40 rounded transition duration-200">
                   <button>{user.username}</button>
                   {c.notify !== 0 && (
                     <span className="rounded-full bg-red-500 h-5 w-5 font-semibold text-xs flex items-center justify-center">

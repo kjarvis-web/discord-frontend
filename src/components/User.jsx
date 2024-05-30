@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getUsers, sendFriendRequest, setRecipient } from '../reducers/userReducer';
+import { deleteFriend, sendFriendRequest, setRecipient } from '../reducers/userReducer';
 import Homepage from './Homepage';
 
 const User = () => {
@@ -32,6 +32,13 @@ const User = () => {
     dispatch(sendFriendRequest(id, {}, config));
   };
 
+  const handleRemove = (id) => {
+    const config = {
+      headers: { Authorization: `Bearer ${loginUser.token}` },
+    };
+    dispatch(deleteFriend(id, {}, config));
+  };
+
   if (users.length === 0) return <div>loading...</div>;
 
   if (id === loginUser.id) return <Homepage />;
@@ -40,20 +47,14 @@ const User = () => {
   const findFriend = user.friends.find((u) => u.id === loginUser.id);
   const findFriendRequest = user.friendRequests.find((u) => u.from === loginUser.id);
 
-  console.log('all users', users);
-  console.log('user', user);
-  console.log('findFriend', findFriend);
-  console.log('findFriendRequest', findFriendRequest);
-
   return (
     <div className="flex flex-col items-center">
       <div className="flex gap-4">
         <h1 className="font-semibold text-xl">{user.username}</h1>
         <button onClick={handleMessage}>Send Message</button>
       </div>
-
       {findFriend ? (
-        <button>remove friend</button>
+        <button onClick={() => handleRemove(id)}>remove friend</button>
       ) : findFriendRequest ? (
         <p>your request has been sent</p>
       ) : (

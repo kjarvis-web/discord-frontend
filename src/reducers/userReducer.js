@@ -36,28 +36,8 @@ const userSlice = createSlice({
       return { ...state, allUsers: [...newUsers, newUser] };
     },
     acceptFriend(state, action) {
-      // accept friend request
-      // const findRequest = state.loggedUser.friendRequests.find(
-      //   (fr) => fr.from === action.payload.id
-      // );
-      // const newRequest = {
-      //   ...findRequest,
-      //   status: 'accepted',
-      // };
-      // const newRequests = state.loggedUser.friendRequests.filter(
-      //   (fr) => fr.from !== action.payload.id
-      // );
-      // return {
-      //   ...state,
-      //   loggedUser: {
-      //     ...state.loggedUser,
-      //     friendRequests: [...newRequests, newRequest],
-      //     friends: [...state.loggedUser.friends, action.payload],
-      //   },
-      // };
       const findUser = state.allUsers.find((u) => u.id === state.loggedUser.id);
       const findRequest = findUser.friendRequests.find((fr) => fr.from === action.payload.id);
-      const newUsers = state.allUsers.filter((u) => u.id !== findUser.id);
       const newRequest = {
         ...findRequest,
         status: 'accepted',
@@ -70,11 +50,31 @@ const userSlice = createSlice({
         ],
         friends: [...findUser.friends, action.payload],
       };
-      return { ...state, allUsers: [...newUsers, newUser] };
+      const findUser2 = state.allUsers.find((u) => u.id === action.payload.id);
+      const newUser2 = { ...findUser2, friends: [...findUser2.friends, newUser] };
+      const newUsers = state.allUsers.filter((u) => u.id !== findUser.id && u.id !== findUser2.id);
+      return { ...state, allUsers: [...newUsers, newUser, newUser2] };
     },
     rejectFriend(state, action) {
       const newUsers = state.allUsers.filter((u) => u.id !== action.payload.id);
       return { ...state, allUsers: [...newUsers, action.payload] };
+    },
+    removeFriend(state, action) {
+      const findRemoved = state.allUsers.find((user) =>
+        user.friends.find(
+          (fr) =>
+            fr.toString() === action.payload.id &&
+            action.payload.friends.find((fr) => fr.toString() !== user.id)
+        )
+      );
+      const newUsers = state.allUsers.filter(
+        (u) => u.id !== action.payload.id && u.id !== findRemoved
+      );
+      const newRemoved = {
+        ...findRemoved,
+        friends: findRemoved.friends.filter((f) => f.toString() !== action.payload.id),
+      };
+      return { ...state, allUsers: [...newUsers, action.payload, newRemoved] };
     },
   },
 });
@@ -89,6 +89,7 @@ export const {
   setFriend,
   acceptFriend,
   rejectFriend,
+  removeFriend,
 } = userSlice.actions;
 
 export const getUsers = () => {
@@ -153,6 +154,18 @@ export const rejectFriendRequest = (id, obj, config) => {
       const friendRequest = await userService.rejectFriend(id, obj, config);
       console.log(friendRequest);
       dispatch(rejectFriend(friendRequest));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteFriend = (id, obj, config) => {
+  return async (dispatch) => {
+    try {
+      const newUser = await userService.removeFriend(id, obj, config);
+      console.log(newUser);
+      dispatch(removeFriend(newUser));
     } catch (error) {
       console.log(error);
     }

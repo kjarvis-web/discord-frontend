@@ -8,7 +8,7 @@ import { getChat } from '../reducers/chatReducer';
 const FriendsList = () => {
   const dispatch = useDispatch();
   const loginUser = useSelector((state) => state.login.user);
-  // const user = useSelector((state) => state.users.loggedUser);
+
   const { chats } = useSelector((state) => state.chat);
   const users = useSelector((state) => state.users.allUsers);
 
@@ -23,9 +23,6 @@ const FriendsList = () => {
   const user = users.find((u) => u.id === loginUser.id);
 
   if (!user || !chats) return <div>loading...</div>;
-
-  console.log('loginUser', loginUser);
-  console.log('user', user);
 
   return (
     <div className="p-2">

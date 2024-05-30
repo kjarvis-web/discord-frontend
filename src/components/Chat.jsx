@@ -111,7 +111,7 @@ const Chat = () => {
             {sortedMessages.map((m, i) => (
               <div
                 key={i}
-                className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded"
+                className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded transition duration-200"
               >
                 <div
                   className={

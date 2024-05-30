@@ -15,7 +15,6 @@ const createUser = async (newUser) => {
 
 const getLoggedUser = async (id) => {
   const request = await axios.get(`${baseUrl}/${id}`);
-  console.log(request.data);
   return request.data;
 };
 
@@ -34,6 +33,11 @@ const rejectFriend = async (id, obj, config) => {
   return response.data;
 };
 
+const removeFriend = async (id, obj, config) => {
+  const response = await axios.post(`${baseUrl}/${id}/remove_friend`, obj, config);
+  return response.data;
+};
+
 export default {
   getUsers,
   createUser,
@@ -41,4 +45,5 @@ export default {
   sendFriendRequest,
   acceptFriend,
   rejectFriend,
+  removeFriend,
 };

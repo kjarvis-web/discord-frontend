@@ -35,22 +35,24 @@ const Homepage = () => {
 
   const user = allUsers.find((u) => u.id === loginUser.id);
   const friendRequests = user.friendRequests.filter((fr) => fr.status === 'pending');
+
   return (
     <div className="mt-8 text-center">
       <h1>Friend Requests</h1>
-      {friendRequests.length > 0 ? (
-        friendRequests.map((fr) => (
-          <div key={fr.id} className="bg-zinc-600 rounded">
-            <p>friend request: {fr.from}</p>
-            <div className="flex items-center justify-center gap-4">
-              <button onClick={() => handleAccept(fr.from)}>Accept</button>
-              <button onClick={() => handleReject(fr.from)}>Reject</button>
+      {friendRequests.map((fr) => {
+        const findUser = allUsers.find((u) => u.id === fr.from);
+        if (friendRequests.length > 0) {
+          return (
+            <div key={fr.id} className="bg-zinc-600 rounded">
+              <p>friend request: {findUser.username}</p>
+              <div className="flex items-center justify-center gap-4">
+                <button onClick={() => handleAccept(fr.from)}>Accept</button>
+                <button onClick={() => handleReject(fr.from)}>Reject</button>
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p>empty</p>
-      )}
+          );
+        }
+      })}
     </div>
   );
 };
