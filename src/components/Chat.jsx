@@ -15,6 +15,7 @@ import ScrollToBottom from './ScrollToBottom';
 import io from 'socket.io-client';
 import { format } from 'date-fns';
 import Dropdown from './Dropdown';
+import { Link } from 'react-router-dom';
 
 const socket = io.connect('http://localhost:3000');
 
@@ -88,6 +89,7 @@ const Chat = () => {
 
     const { username } = users.find((u) => u.id === findUser.user1);
     const sortedMessages = [...findUser.messages].sort((a, b) => a.created - b.created);
+    console.log(sortedMessages);
 
     return (
       <div className="flex flex-col h-full">
@@ -108,27 +110,35 @@ const Chat = () => {
               </div>
               <p className="message text-lg whitespace-pre-wrap">{findUser.chat}</p>
             </div>
-            {sortedMessages.map((m, i) => (
-              <div
-                key={i}
-                className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded transition duration-200"
-              >
+            {sortedMessages.map((m, i) => {
+              const { id } = users.find((u) => u.username === m.user.username);
+              return (
                 <div
-                  className={
-                    m.user.username === user.username
-                      ? 'flex gap-2 text-xs font-bold text-zinc-400'
-                      : 'flex gap-2 text-xs font-bold text-blue-700'
-                  }
+                  key={i}
+                  className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded transition duration-200"
                 >
-                  <p>{m.user.username}</p>
-                  <p>{m.date}</p>
+                  <div
+                    className={
+                      m.user.username === user.username
+                        ? 'flex gap-2 text-xs font-bold text-zinc-400'
+                        : 'flex gap-2 text-xs font-bold text-blue-700'
+                    }
+                  >
+                    <Link to={`/user/${id}`} className="hover:underline">
+                      <p>{m.user.username}</p>
+                    </Link>
+
+                    <p>{m.date}</p>
+                  </div>
+                  <div className="flex relative">
+                    <p className="message text-lg whitespace-pre-wrap mr-2 overflow-auto">
+                      {m.text}
+                    </p>
+                    <Dropdown message={m} />
+                  </div>
                 </div>
-                <div className="flex relative">
-                  <p className="message text-lg whitespace-pre-wrap mr-2 overflow-auto">{m.text}</p>
-                  <Dropdown message={m} />
-                </div>
-              </div>
-            ))}
+              );
+            })}
             <div className="pt-4 px-2 w-full">
               <form className="flex items-center" onSubmit={handleSend}>
                 <textarea
