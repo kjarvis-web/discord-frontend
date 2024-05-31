@@ -46,6 +46,9 @@ const chatSlice = createSlice({
       const newChats = state.chats.filter((o) => o.id !== action.payload.id);
       return { ...state, chats: [...newChats, addNotify] };
     },
+    setError(state, action) {
+      return { ...state, error: action.payload };
+    },
   },
 });
 
@@ -57,6 +60,7 @@ export const {
   appendChat,
   editMessage,
   setNotify,
+  setError,
 } = chatSlice.actions;
 
 export const getChat = () => {
@@ -68,6 +72,10 @@ export const getChat = () => {
       dispatch(initializeChat(newChat));
       dispatch(setLoading(false));
     } catch (error) {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 5000);
       console.log(error);
     }
   };

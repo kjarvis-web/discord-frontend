@@ -16,8 +16,9 @@ import io from 'socket.io-client';
 import { format } from 'date-fns';
 import Dropdown from './Dropdown';
 import { Link } from 'react-router-dom';
+import config from '../utils/config';
 
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect(config.baseUrl);
 
 const Chat = () => {
   const [text, setText] = useState('');
