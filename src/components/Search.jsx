@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiMiniPlusSmall } from 'react-icons/hi2';
+import { FaMessage } from 'react-icons/fa6';
+import { IoMdCloseCircle } from 'react-icons/io';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -61,12 +63,23 @@ const Search = () => {
               className="flex justify-between mt-4 p-4"
               onSubmit={(e) => handleSubmit(e, u)}
             >
-              <button onClick={(e) => handleUser(e, u.id)}>{u.username}</button>
-              <button type="submit" className="bg-slate-300 text-zinc-950 rounded">
-                Add
+              <button
+                onClick={(e) => handleUser(e, u.id)}
+                className="font-semibold hover:text-blue-500"
+              >
+                {u.username}
+              </button>
+              <button type="submit" className="hover:text-blue-500">
+                <FaMessage className="w-4 h-4" />
               </button>
             </form>
           ))}
+          <button
+            className="absolute text-zinc-300 hover:text-zinc-400 -top-7 right-1"
+            onClick={() => setQuery('')}
+          >
+            <IoMdCloseCircle className="w-5 h-5" />
+          </button>
         </div>
       )}
     </div>

@@ -20,6 +20,8 @@ import config from '../utils/config';
 
 const socket = io.connect(config.baseUrl);
 
+console.log(config.baseUrl);
+
 const Chat = () => {
   const [text, setText] = useState('');
   const user = useSelector((state) => state.users.loggedUser);
