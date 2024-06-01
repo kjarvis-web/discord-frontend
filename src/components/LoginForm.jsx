@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { HiMiniArrowLeftStartOnRectangle } from 'react-icons/hi2';
 import io from 'socket.io-client';
-const socket = io.connect('http://localhost:3000');
+import config from '../utils/config';
+const socket = io.connect(config.baseUrl);
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');

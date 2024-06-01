@@ -25,7 +25,7 @@ console.log(config.baseUrl);
 const Chat = () => {
   const [text, setText] = useState('');
   const user = useSelector((state) => state.users.loggedUser);
-  const { chats } = useSelector((state) => state.chat);
+  const { chats, error } = useSelector((state) => state.chat);
   const loading = useSelector((state) => state.chat.loading);
   const loginUser = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
@@ -34,11 +34,14 @@ const Chat = () => {
 
   useEffect(() => {
     if (loginUser) {
+      console.log('join');
+      console.log('id', id);
       dispatch(getLoggedUser(loginUser.id));
       socket.emit('join_room', id);
       dispatch(getChat());
     } else {
-      socket.emit('leave_all');
+      console.log('leave');
+      // socket.emit('leave_all');
     }
   }, [dispatch, loginUser, id]);
 

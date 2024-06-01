@@ -72,9 +72,6 @@ export const getChat = () => {
       dispatch(setLoading(false));
     } catch (error) {
       setError(true);
-      setTimeout(() => {
-        setError(false);
-      }, 5000);
       console.log(error);
     }
   };
