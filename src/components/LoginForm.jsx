@@ -65,7 +65,6 @@ const LoginForm = () => {
 
   return (
     <div className="flex gap-4 items-center text-sm">
-      <p>{user.username} logged in</p>
       <button
         onClick={handleLogout}
         className="bg-slate-200 hover:bg-slate-100 rounded-full p-2 text-zinc-900 flex items-center"

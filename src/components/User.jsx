@@ -54,15 +54,43 @@ const User = () => {
   );
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="flex gap-4">
-        <h1 className="font-semibold text-xl">{user.username}</h1>
-        <button onClick={handleMessage}>Send Message</button>
+    <div className="container mx-auto">
+      <div className="flex items-center justify-center gap-2">
+        <h1 className="font-semibold text-3xl">{user.username}</h1>
+        <button
+          onClick={handleMessage}
+          className="bg-green-500 hover:bg-green-600 rounded px-2 font-semibold"
+        >
+          Send Message
+        </button>
+        {findFriend ? (
+          <button
+            onClick={() => handleRemove(id)}
+            className="bg-red-500 hover:bg-red-600 rounded px-2 font-semibold"
+          >
+            Remove Friend
+          </button>
+        ) : findFriendRequest ? (
+          <p>Your request has been sent.</p>
+        ) : loggedUserRequests ? (
+          <div>
+            <Link to="/">
+              <p>go to Homepage</p>
+            </Link>
+          </div>
+        ) : (
+          <button
+            onClick={(e) => handleFriendRequest(e, id)}
+            className="bg-blue-500 hover:bg-blue-600 rounded px-2 font-semibold"
+          >
+            Add as friend
+          </button>
+        )}
       </div>
-      {findFriend ? (
+      {/* {findFriend ? (
         <button onClick={() => handleRemove(id)}>remove friend</button>
       ) : findFriendRequest ? (
-        <p>your request has been sent</p>
+        <p>Your request has been sent.</p>
       ) : loggedUserRequests ? (
         <div>
           <Link to="/">
@@ -70,8 +98,10 @@ const User = () => {
           </Link>
         </div>
       ) : (
-        <button onClick={(e) => handleFriendRequest(e, id)}>send friend request</button>
-      )}
+        <button onClick={(e) => handleFriendRequest(e, id)} className="bg-blue-500 rounded px-2">
+          Add as friend
+        </button>
+      )} */}
     </div>
   );
 };

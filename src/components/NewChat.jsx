@@ -23,17 +23,40 @@ const NewChat = () => {
     }
   };
 
+  const findUser = useSelector((state) => state.users.allUsers.find((u) => u.id === recipient));
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   return (
-    <div>
-      <h1>New Chat to {recipient}</h1>
-      <form onSubmit={handleSubmit}>
-        <input
+    <div className="p-2 w-full h-full flex flex-col">
+      <h1 className="">Sending message to {findUser.username}</h1>
+      <form onSubmit={handleSubmit} className="flex items-center mt-auto">
+        {/* <input
           type="text"
           value={chat}
           onChange={(e) => setChat(e.target.value)}
           className="text-zinc-950"
         />
-        <button type="submit">send</button>
+        <button type="submit">send</button> */}
+        <textarea
+          // value={text}
+          onKeyDown={handleKeyDown}
+          onChange={(e) => setChat(e.target.value)}
+          className="flex-grow bg-zinc-100 text-zinc-950 p-2 rounded mr-4 text-sm outline-none resize-none h-10"
+          autoFocus
+          required
+        />
+        <button
+          type="submit"
+          className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-sm h-10"
+        >
+          Send
+        </button>
       </form>
     </div>
   );

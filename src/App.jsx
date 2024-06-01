@@ -22,7 +22,7 @@ function App() {
   }, [dispatch]);
   return (
     <Router>
-      <main className="flex h-screen flex-col bg-slate-950 text-slate-100">
+      <main className="flex h-screen flex-col bg-slate-950 text-slate-100 font-inter">
         <Navbar />
         <div className="grid grid-cols-4 md:grid-cols-12 h-full overflow-hidden">
           <Sidebar />

@@ -43,7 +43,6 @@ const Chat = () => {
   useEffect(() => {
     socket.on('receive_message', (data) => {
       dispatch(appendMessage(data));
-      console.log('msg');
       if (id !== data.chatId) {
         console.log('notify', data);
         const findChat = chats.find((c) => c.id === data.chatId);
@@ -64,8 +63,6 @@ const Chat = () => {
   if (!findUser) {
     return <div>404</div>;
   } else {
-    // socket.emit('join_room', id);
-
     const handleSend = (e) => {
       const date = new Date();
       e.preventDefault();
@@ -90,7 +87,6 @@ const Chat = () => {
 
     const { username } = users.find((u) => u.id === findUser.user1);
     const sortedMessages = [...findUser.messages].sort((a, b) => a.created - b.created);
-    console.log(sortedMessages);
 
     return (
       <div className="flex flex-col h-full">

@@ -68,7 +68,6 @@ export const getChat = () => {
     try {
       dispatch(setLoading(true));
       const newChat = await chatService.getChat();
-      console.log('newchat', newChat);
       dispatch(initializeChat(newChat));
       dispatch(setLoading(false));
     } catch (error) {

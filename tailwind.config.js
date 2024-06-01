@@ -2,7 +2,12 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        nunito: '"Nunito Variable", sans-serif',
+        inter: '"Inter Variable", sans-serif',
+      },
+    },
   },
   plugins: [],
 };

@@ -37,7 +37,10 @@ const Homepage = () => {
   const friendRequests = user.friendRequests.filter((fr) => fr.status === 'pending');
 
   return (
-    <div className="mt-8 text-center">
+    <div className="mt-8 px-2">
+      <div className="user">
+        <h1 className="text-2xl font-semibold">{user.username}</h1>
+      </div>
       <h1>Friend Requests</h1>
       {friendRequests.map((fr) => {
         const findUser = allUsers.find((u) => u.id === fr.from);
