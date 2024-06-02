@@ -46,6 +46,12 @@ const chatSlice = createSlice({
       const newChats = state.chats.filter((o) => o.id !== action.payload.id);
       return { ...state, chats: [...newChats, addNotify] };
     },
+    setHidden(state, action) {
+      const findChat = state.chats.find((o) => o.id === action.payload.id);
+      const changeHidden = { ...findChat, hidden: action.payload.hidden };
+      const newChats = state.chats.filter((o) => o.id !== action.payload.id);
+      return { ...state, chats: [...newChats, changeHidden] };
+    },
     setError(state, action) {
       return { ...state, error: action.payload };
     },
@@ -60,6 +66,7 @@ export const {
   appendChat,
   editMessage,
   setNotify,
+  setHidden,
   setError,
 } = chatSlice.actions;
 
@@ -73,6 +80,9 @@ export const getChat = () => {
     } catch (error) {
       setError(true);
       console.log(error);
+      setTimeout(() => {
+        setError(false);
+      }, 5000);
     }
   };
 };
@@ -97,6 +107,7 @@ export const addMessage = (id, message) => {
       const newMessage = await chatService.addMessage(id, message);
       console.log(newMessage);
       dispatch(appendMessage(newMessage));
+      dispatch(hideChat({ id: newMessage.chatId, hidden: false }));
     } catch (error) {
       console.log('addMessage', error);
     }
@@ -121,6 +132,18 @@ export const updateNotify = (chat) => {
       const newChat = await chatService.notify(chat);
       console.log(newChat);
       dispatch(setNotify(newChat));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const hideChat = (chat) => {
+  return async (dispatch) => {
+    try {
+      const newChat = await chatService.hideChat(chat);
+      console.log(newChat);
+      dispatch(setHidden(chat));
     } catch (error) {
       console.log(error);
     }

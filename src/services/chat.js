@@ -47,4 +47,9 @@ const notify = async (updatedChat) => {
   return response.data;
 };
 
-export default { getChat, addChat, setToken, addMessage, editMessage, notify, token };
+const hideChat = async (updatedChat) => {
+  const response = await axios.put(`${baseUrl}/${updatedChat.id}/hide`, updatedChat);
+  return response.data;
+};
+
+export default { getChat, addChat, setToken, addMessage, editMessage, notify, hideChat };
