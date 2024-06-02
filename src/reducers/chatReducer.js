@@ -92,8 +92,22 @@ export const addChat = (obj) => {
     try {
       dispatch(setLoading(true));
       const newChat = await chatService.addChat(obj);
+      console.log(newChat);
       dispatch(appendChat(newChat));
       dispatch(setLoading(false));
+      return newChat;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const addGroupChat = (obj) => {
+  return async (dispatch) => {
+    try {
+      const newChat = await chatService.addGroupChat(obj);
+      console.log(newChat);
+      dispatch(appendChat(newChat));
       return newChat;
     } catch (error) {
       console.log(error);

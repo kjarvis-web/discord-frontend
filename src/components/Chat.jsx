@@ -90,8 +90,81 @@ const Chat = () => {
       }
     };
 
-    const { username } = users.find((u) => u.id === findUser.user1);
     const sortedMessages = [...findUser.messages].sort((a, b) => a.created - b.created);
+    if (!findUser.user1 || !findUser.user2)
+      return (
+        <div className="flex flex-col h-full">
+          <div className="bg-slate-800 flex flex-col mt-auto">
+            <div className="py-4 px-2 bg-slate-950">
+              <div className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded">
+                <div className="flex gap-2 text-xs">
+                  {/* <p
+                    className={
+                      username === user.username
+                        ? 'flex gap-2 text-xs font-bold text-zinc-400'
+                        : 'flex gap-2 text-xs font-bold text-blue-700'
+                    }
+                  >
+                    {username}
+                  </p> */}
+                  <p>{findUser.date}</p>
+                </div>
+                <p className="message text-lg whitespace-pre-wrap">{findUser.chat}</p>
+              </div>
+              {sortedMessages.map((m, i) => {
+                const { id } = users.find((u) => u.username === m.user.username);
+                return (
+                  <div
+                    key={i}
+                    className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded transition duration-200"
+                  >
+                    <div
+                      className={
+                        m.user.username === user.username
+                          ? 'flex gap-2 text-xs font-bold text-zinc-400'
+                          : 'flex gap-2 text-xs font-bold text-blue-700'
+                      }
+                    >
+                      <Link to={`/user/${id}`} className="hover:underline">
+                        <p>{m.user.username}</p>
+                      </Link>
+                      <p>{m.date}</p>
+                    </div>
+                    <div className="flex relative">
+                      <p className="message text-lg whitespace-pre-wrap mr-2 overflow-auto">
+                        {m.text}
+                      </p>
+                      <Dropdown message={m} />
+                    </div>
+                  </div>
+                );
+              })}
+              <div className="pt-4 px-2 w-full">
+                <form className="flex items-center" onSubmit={handleSend}>
+                  <textarea
+                    value={text}
+                    onKeyDown={handleKeyDown}
+                    onChange={(e) => setText(e.target.value)}
+                    className="flex-grow bg-zinc-100 text-zinc-950 p-2 rounded mr-4 text-sm outline-none resize-none h-10"
+                    autoFocus
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-sm h-10"
+                  >
+                    Send
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <ScrollToBottom />
+        </div>
+      );
+
+    const { username } = users.find((u) => u.id === findUser.user1);
+    // const sortedMessages = [...findUser.messages].sort((a, b) => a.created - b.created);
 
     return (
       <div className="flex flex-col h-full">

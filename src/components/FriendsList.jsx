@@ -19,7 +19,8 @@ const FriendsList = () => {
     dispatch(getChat());
   }, [dispatch, loginUser]);
 
-  if (!loginUser) return <div>Log In</div>;
+  if (!loginUser) return null;
+
   const user = users.find((u) => u.id === loginUser.id);
 
   if (!user || !chats) return <div>loading...</div>;

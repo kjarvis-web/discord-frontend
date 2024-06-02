@@ -3,6 +3,7 @@ import config from '../utils/config';
 
 const baseUrl = `${config.baseUrl}/chat`;
 const messageUrl = `${config.baseUrl}/message`;
+const groupUrl = `${config.baseUrl}/group`;
 let token = null;
 const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
@@ -43,7 +44,7 @@ const editMessage = async (updatedMessage) => {
 };
 
 const notify = async (updatedChat) => {
-  const response = await axios.put(`${baseUrl}/${updatedChat.id}`, updatedChat);
+  const response = await axios.put(`${baseUrl}/${updatedChat.id}/notify`, updatedChat);
   return response.data;
 };
 
@@ -52,4 +53,21 @@ const hideChat = async (updatedChat) => {
   return response.data;
 };
 
-export default { getChat, addChat, setToken, addMessage, editMessage, notify, hideChat };
+const addGroupChat = async (newChat) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.post(groupUrl, newChat, config);
+  return response.data;
+};
+
+export default {
+  getChat,
+  addChat,
+  setToken,
+  addMessage,
+  editMessage,
+  notify,
+  hideChat,
+  addGroupChat,
+};

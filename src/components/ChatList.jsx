@@ -40,14 +40,17 @@ const ChatList = () => {
       <div className="flex flex-col">
         {sorted.map((c) => {
           const user = users.find(
-            (u) => u.id !== loggedUser.id && (u.id === c.user1 || u.id === c.user2)
+            (u) =>
+              // u.id !== loggedUser.id &&
+              u.id === c.user1 || u.id === c.user2 || c.users.find((user) => user === loggedUser.id)
           );
+          console.log(user);
           return (
             user &&
             c.hidden === false && (
               <Link key={c.id} to={`/chats/${c.id}`} onClick={() => handleNotify(c.id)}>
                 <div className="relative group flex items-center justify-between p-2 hover:bg-zinc-600 hover:bg-opacity-40 rounded transition duration-200">
-                  <button className="font-semibold">{user.username}</button>
+                  <button className="font-semibold">{c.chat}</button>
                   {c.notify !== 0 && (
                     <span className="group-hover:hidden rounded-full bg-red-500 h-5 w-5 font-semibold text-xs flex items-center justify-center">
                       {c.notify}
@@ -55,7 +58,7 @@ const ChatList = () => {
                   )}
                   <button
                     onClick={(e) => handleClose(e, c.id)}
-                    className="hidden group-hover:block absolute right-1 text-zinc-200 hover:text-zinc-300"
+                    className="hidden group-hover:block absolute right-1 text-zinc-300 hover:text-zinc-100"
                   >
                     <IoMdCloseCircle className="w-5 h-5" />
                   </button>

@@ -3,6 +3,7 @@ import Search from './Search';
 import { useSelector } from 'react-redux';
 import LoginForm from './LoginForm';
 import Notifications from './Notifications';
+import Compose from './Compose';
 
 const Navbar = () => {
   const loginUser = useSelector((state) => state.login.user);
@@ -14,7 +15,10 @@ const Navbar = () => {
         </Link>
         {loginUser && (
           <>
-            <Search />
+            <div className="flex items-center gap-1">
+              <Compose />
+              <Search />
+            </div>
             <div className="flex items-center gap-4">
               <Notifications />
               <LoginForm />
