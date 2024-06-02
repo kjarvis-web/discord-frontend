@@ -34,8 +34,6 @@ const Chat = () => {
 
   useEffect(() => {
     if (loginUser) {
-      console.log('join');
-      console.log('id', id);
       dispatch(getLoggedUser(loginUser.id));
       socket.emit('join_room', id);
       dispatch(getChat());
@@ -49,12 +47,10 @@ const Chat = () => {
     socket.on('receive_message', (data) => {
       dispatch(appendMessage(data));
       if (id !== data.chatId) {
-        console.log('notify', data);
         const findChat = chats.find((c) => c.id === data.chatId);
         dispatch(updateNotify({ notify: findChat.notify + 1, id: findChat.id }));
       }
     });
-
     socket.on('receive_edit', (data) => {
       dispatch(editMessage(data));
     });
@@ -63,9 +59,9 @@ const Chat = () => {
   }, [dispatch, id, chats]);
 
   if (loading) return <div>loading...</div>;
-  const findUser = chats.find((c) => c.id === id);
+  const findChat = chats.find((c) => c.id === id);
 
-  if (!findUser) {
+  if (!findChat) {
     return <div>404</div>;
   } else {
     const handleSend = (e) => {
@@ -90,26 +86,27 @@ const Chat = () => {
       }
     };
 
-    const sortedMessages = [...findUser.messages].sort((a, b) => a.created - b.created);
-    if (!findUser.user1 || !findUser.user2)
+    const { username } = users.find((u) => u.id === findChat.user1);
+    const sortedMessages = [...findChat.messages].sort((a, b) => a.created - b.created);
+    if (findChat.users.length > 0)
       return (
         <div className="flex flex-col h-full">
           <div className="bg-slate-800 flex flex-col mt-auto">
             <div className="py-4 px-2 bg-slate-950">
               <div className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded">
                 <div className="flex gap-2 text-xs">
-                  {/* <p
+                  <p
                     className={
-                      username === user.username
+                      findChat.user1 === user.id
                         ? 'flex gap-2 text-xs font-bold text-zinc-400'
                         : 'flex gap-2 text-xs font-bold text-blue-700'
                     }
                   >
                     {username}
-                  </p> */}
-                  <p>{findUser.date}</p>
+                  </p>
+                  <p>{findChat.date}</p>
                 </div>
-                <p className="message text-lg whitespace-pre-wrap">{findUser.chat}</p>
+                <p className="message text-lg whitespace-pre-wrap">{findChat.chat}</p>
               </div>
               {sortedMessages.map((m, i) => {
                 const { id } = users.find((u) => u.username === m.user.username);
@@ -163,8 +160,8 @@ const Chat = () => {
         </div>
       );
 
-    const { username } = users.find((u) => u.id === findUser.user1);
-    // const sortedMessages = [...findUser.messages].sort((a, b) => a.created - b.created);
+    // const { username } = users.find((u) => u.id === findChat.user1);
+    // const sortedMessages = [...findChat.messages].sort((a, b) => a.created - b.created);
 
     return (
       <div className="flex flex-col h-full">
@@ -181,9 +178,9 @@ const Chat = () => {
                 >
                   {username}
                 </p>
-                <p>{findUser.date}</p>
+                <p>{findChat.date}</p>
               </div>
-              <p className="message text-lg whitespace-pre-wrap">{findUser.chat}</p>
+              <p className="message text-lg whitespace-pre-wrap">{findChat.chat}</p>
             </div>
             {sortedMessages.map((m, i) => {
               const { id } = users.find((u) => u.username === m.user.username);

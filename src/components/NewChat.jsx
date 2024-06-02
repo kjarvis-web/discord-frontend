@@ -14,19 +14,6 @@ const NewChat = () => {
   const navigate = useNavigate();
   const loggedUser = useSelector((state) => state.login.user);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const newChat = {
-  //     chat,
-  //     recipient,
-  //   };
-  //   const { id } = dispatch(addChat(newChat));
-  //   console.log(id);
-  //   if (id) {
-  //     navigate(`/chats/${id}`);
-  //   }
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (recipient) {
@@ -78,7 +65,6 @@ const NewChat = () => {
     const { id } = users.find((u) => u.username.toLowerCase() === query.toLowerCase());
     setUsernames((state) => [...state, id]);
     setQuery('');
-    console.log(id);
   };
 
   if (!findUser)
