@@ -11,3 +11,4 @@
 9. Sign up page &#x2705;
 10. send friend requests from frontend &#x2705;
 11. online indicator
+12. socket for new chat

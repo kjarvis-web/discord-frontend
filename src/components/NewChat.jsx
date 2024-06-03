@@ -13,13 +13,20 @@ const NewChat = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedUser = useSelector((state) => state.login.user);
+  const { chats } = useSelector((state) => state.chat);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (recipient) {
+    if (recipient || usernames.length <= 1) {
+      const findChat = chats.find(
+        (chat) => chat.user1 === usernames[0] || chat.user2 === usernames[0]
+      );
+      if (findChat) {
+        return navigate(`/chats/${findChat.id}`);
+      }
       const newChat = {
         chat,
-        recipient,
+        recipient: recipient ? recipient : usernames[0],
       };
       dispatch(addChat(newChat))
         .then((newChat) => {
@@ -72,7 +79,7 @@ const NewChat = () => {
       <div className="p-2 w-full h-full flex flex-col">
         <div className="flex items-center justify-center gap-1">
           <label htmlFor="compose" className="font-semibold text-sm">
-            Compose Message:
+            Create Group:
           </label>
           <input
             type="text"

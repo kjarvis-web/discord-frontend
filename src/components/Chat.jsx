@@ -25,7 +25,7 @@ console.log(config.baseUrl);
 const Chat = () => {
   const [text, setText] = useState('');
   const user = useSelector((state) => state.users.loggedUser);
-  const { chats, error } = useSelector((state) => state.chat);
+  const { chats } = useSelector((state) => state.chat);
   const loading = useSelector((state) => state.chat.loading);
   const loginUser = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
