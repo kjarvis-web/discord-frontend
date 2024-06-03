@@ -70,15 +70,21 @@ const NewChat = () => {
   if (!findUser)
     return (
       <div className="p-2 w-full h-full flex flex-col">
-        <div>
-          <h1>Compose: </h1>
+        <div className="flex items-center justify-center gap-1">
+          <label htmlFor="compose" className="font-semibold text-sm">
+            Compose Message:
+          </label>
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="text-zinc-900"
+            className="text-zinc-900 rounded-full text-sm p-2 outline-none"
+            name="compose"
+            placeholder="add username..."
           />
-          <button onClick={handleGroup}>Add</button>
+          <button onClick={handleGroup} className="p-2 bg-blue-500 rounded-full">
+            Add
+          </button>
           {usernames && usernames.map((u, i) => <div key={i}>{u}</div>)}
         </div>
         <form onSubmit={handleSubmit} className="flex items-center mt-auto">

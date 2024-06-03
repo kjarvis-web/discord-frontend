@@ -91,6 +91,16 @@ const Chat = () => {
     if (findChat.users.length > 0)
       return (
         <div className="flex flex-col h-full">
+          <div className="flex bg-zinc-600 bg-opacity-40 gap-2 p-2">
+            {findChat.users.map((u) => {
+              const findUsername = users.find((user) => user.id === u);
+              return (
+                <p className="font-semibold" key={u}>
+                  {findUsername.username}
+                </p>
+              );
+            })}
+          </div>
           <div className="bg-slate-800 flex flex-col mt-auto">
             <div className="py-4 px-2 bg-slate-950">
               <div className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded">
@@ -162,9 +172,17 @@ const Chat = () => {
 
     // const { username } = users.find((u) => u.id === findChat.user1);
     // const sortedMessages = [...findChat.messages].sort((a, b) => a.created - b.created);
-
+    const findUsername1 = users.find((u) => u.id === findChat.user1);
+    const findUsername2 = users.find((u) => u.id === findChat.user2);
     return (
       <div className="flex flex-col h-full">
+        <div className="flex bg-zinc-600 gap-2 p-2">
+          {findChat.user1 === user.id ? (
+            <p>{findUsername2.username}</p>
+          ) : (
+            <p>{findUsername1.username}</p>
+          )}
+        </div>
         <div className="bg-slate-800 flex flex-col mt-auto">
           <div className="py-4 px-2 bg-slate-950">
             <div className="flex flex-col mt-2 rounded hover:bg-zinc-800 hover:bg-opacity-40 hover:rounded">
