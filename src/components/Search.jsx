@@ -4,7 +4,6 @@ import { getUsers, setRecipient } from '../reducers/userReducer';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HiMiniPlusSmall } from 'react-icons/hi2';
 import { FaMessage } from 'react-icons/fa6';
 import { IoMdCloseCircle } from 'react-icons/io';
 
@@ -46,17 +45,17 @@ const Search = () => {
   };
   return (
     <div className="find-user text-sm relative">
-      <label htmlFor="search">{/* <HiMiniPlusSmall className="w-8 h-8" /> */}</label>
+      <label htmlFor="search"></label>
       <input
         type="text"
         placeholder="type in username"
-        className="text-zinc-950 rounded-full p-2 outline-none"
+        className="text-zinc-950 rounded-md p-2 outline-none"
         id="search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
       {query.length > 0 && (
-        <div className="absolute flex flex-col bg-slate-800 w-full rounded-b z-10">
+        <div className="absolute flex flex-col bg-slate-800 w-full rounded-b z-10 shadow">
           {results.map((u) => (
             <form
               key={u.id}

@@ -1,6 +1,6 @@
 # Discord Lite
 
-1. notifications for messages/friend requests kindof?
+1. notifications for messages/friend requests &#x2705; kindof?
 2. real time chat functionality &#x2705;
 3. upload pictures backend
 4. chat room with multiple users/group chat backend &#x2705;
@@ -12,3 +12,4 @@
 10. send friend requests from frontend &#x2705;
 11. online indicator
 12. socket for new chat
+13. delete message
