@@ -3,8 +3,11 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getUsers } from '../reducers/userReducer';
 import { useEffect } from 'react';
-import { hideChat, updateNotify } from '../reducers/chatReducer';
+import { getChatAll, hideChat, updateNotify } from '../reducers/chatReducer';
 import { IoMdCloseCircle } from 'react-icons/io';
+// import io from 'socket.io-client';
+// import config from '../utils/config';
+// const socket = io.connect(config.baseUrl);
 
 const ChatList = () => {
   const { chats } = useSelector((state) => state.chat);
@@ -18,7 +21,6 @@ const ChatList = () => {
 
   const handleClose = (e, id) => {
     e.preventDefault();
-    console.log(chats);
     dispatch(hideChat({ id: id, hidden: true }));
   };
 
@@ -26,7 +28,10 @@ const ChatList = () => {
     if (!users) {
       dispatch(getUsers());
     }
-  }, [dispatch, users]);
+    if (loggedUser) {
+      dispatch(getChatAll());
+    }
+  }, [dispatch, users, loggedUser]);
 
   if (!users) return <div>loading...</div>;
 

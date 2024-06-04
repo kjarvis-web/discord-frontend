@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import {
-  addMessage,
-  appendMessage,
-  editMessage,
-  getChat,
-  updateNotify,
-} from '../reducers/chatReducer';
+import { addMessage, appendMessage, editMessage, updateNotify } from '../reducers/chatReducer';
 import { useEffect } from 'react';
 import { getLoggedUser } from '../reducers/userReducer';
 import { useParams } from 'react-router-dom';
@@ -19,8 +13,6 @@ import { Link } from 'react-router-dom';
 import config from '../utils/config';
 
 const socket = io.connect(config.baseUrl);
-
-console.log(config.baseUrl);
 
 const Chat = () => {
   const [text, setText] = useState('');
@@ -36,7 +28,6 @@ const Chat = () => {
     if (loginUser) {
       dispatch(getLoggedUser(loginUser.id));
       socket.emit('join_room', id);
-      dispatch(getChat());
     } else {
       console.log('leave');
       // socket.emit('leave_all');

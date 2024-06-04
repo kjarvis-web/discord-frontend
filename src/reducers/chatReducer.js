@@ -70,7 +70,7 @@ export const {
   setError,
 } = chatSlice.actions;
 
-export const getChat = () => {
+export const getChatAll = () => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));

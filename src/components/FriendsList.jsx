@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getLoggedUser } from '../reducers/userReducer';
 import { Link } from 'react-router-dom';
-import { getChat } from '../reducers/chatReducer';
+import { getChatAll } from '../reducers/chatReducer';
 
 const FriendsList = () => {
   const dispatch = useDispatch();
@@ -15,8 +15,8 @@ const FriendsList = () => {
   useEffect(() => {
     if (loginUser) {
       dispatch(getLoggedUser(loginUser.id));
+      // dispatch(getChatAll());
     }
-    dispatch(getChat());
   }, [dispatch, loginUser]);
 
   if (!loginUser) return null;
