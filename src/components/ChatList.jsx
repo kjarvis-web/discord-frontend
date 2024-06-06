@@ -5,12 +5,12 @@ import { getUsers } from '../reducers/userReducer';
 import { useEffect } from 'react';
 import { getChatAll, hideChat, updateNotify } from '../reducers/chatReducer';
 import { IoMdCloseCircle } from 'react-icons/io';
-// import io from 'socket.io-client';
-// import config from '../utils/config';
-// const socket = io.connect(config.baseUrl);
+import io from 'socket.io-client';
+import config from '../utils/config';
+const socket = io.connect(config.baseUrl);
 
 const ChatList = () => {
-  const { chats } = useSelector((state) => state.chat);
+  const { chats, loading } = useSelector((state) => state.chat);
   const users = useSelector((state) => state.users.allUsers);
   const loggedUser = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
@@ -28,10 +28,27 @@ const ChatList = () => {
     if (!users) {
       dispatch(getUsers());
     }
+  }, [dispatch, users]);
+
+  useEffect(() => {
+    // if (!users) {
+    //   dispatch(getUsers());
+    // }
     if (loggedUser) {
       dispatch(getChatAll());
+      // const rooms = chats.map((chat) => chat.id);
+      // socket.emit('join_room', rooms);
+      // console.log('join');
     }
-  }, [dispatch, users, loggedUser]);
+  }, [dispatch, loggedUser]);
+
+  // useEffect(() => {
+  //   if (chats.length > 0 && !loading) {
+  //     const rooms = chats.map((chat) => chat.id);
+  //     socket.emit('join_room', rooms);
+  //     console.log('join');
+  //   }
+  // }, [chats, loading]);
 
   if (!users) return <div>loading...</div>;
 

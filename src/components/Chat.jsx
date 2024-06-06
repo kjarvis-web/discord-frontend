@@ -27,12 +27,19 @@ const Chat = () => {
   useEffect(() => {
     if (loginUser) {
       dispatch(getLoggedUser(loginUser.id));
-      socket.emit('join_room', id);
+      // socket.emit('join_room', id);
     } else {
       console.log('leave');
       // socket.emit('leave_all');
     }
   }, [dispatch, loginUser, id]);
+
+  useEffect(() => {
+    if (chats.length > 0) {
+      const rooms = chats.map((chat) => chat.id);
+      socket.emit('join_room', rooms);
+    }
+  }, [chats]);
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
@@ -56,8 +63,12 @@ const Chat = () => {
     return <div>404</div>;
   } else {
     const handleSend = (e) => {
-      const date = new Date();
       e.preventDefault();
+      if (text.trim() === '') {
+        return;
+      }
+      const date = new Date();
+
       const message = {
         text,
         user,
