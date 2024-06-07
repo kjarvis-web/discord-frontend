@@ -10,6 +10,7 @@ const NewChat = () => {
   const [chat, setChat] = useState('');
   const [usernames, setUsernames] = useState([]);
   const [query, setQuery] = useState('');
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loggedUser = useSelector((state) => state.login.user);
@@ -69,31 +70,55 @@ const NewChat = () => {
   };
 
   const handleGroup = () => {
-    const { id } = users.find((u) => u.username.toLowerCase() === query.toLowerCase());
-    setUsernames((state) => [...state, id]);
+    setError('');
+    const search = users.find((u) => u.username.toLowerCase() === query.toLowerCase());
+    if (!search) {
+      return setError('no user');
+    }
+    if (usernames.find((u) => u === search.id)) {
+      return setError('username already added');
+    }
+    setUsernames((state) => [...state, search.id]);
     setQuery('');
   };
 
   if (!findUser)
     return (
       <div className="p-2 w-full h-full flex flex-col">
-        <div className="flex items-center justify-center gap-1">
-          <label htmlFor="compose" className="font-semibold text-sm">
-            Create Group:
-          </label>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="text-zinc-900 rounded-full text-sm p-2 outline-none"
-            name="compose"
-            placeholder="add username..."
-          />
-          <button onClick={handleGroup} className="p-2 bg-blue-500 rounded-full">
-            Add
-          </button>
-          {usernames && usernames.map((u, i) => <div key={i}>{u}</div>)}
+        <div className="grid grid-cols-9">
+          <div className="col-span-3 col-start-4 flex gap-x-2 items-center">
+            <label htmlFor="compose" className="font-semibold text-sm">
+              Create Group:
+            </label>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="text-zinc-900 rounded-md text-sm p-2 outline-none grow"
+              name="compose"
+              placeholder="add username..."
+            />
+            <button
+              onClick={handleGroup}
+              className="p-2 bg-blue-600 rounded-md text-sm hover:bg-blue-500"
+            >
+              Add
+            </button>
+          </div>
+          <div className="mt-4 flex flex-col col-start-4">
+            {usernames &&
+              usernames.map((u, i) => {
+                const user = users.find((user) => user.id === u);
+                return (
+                  <div className="" key={i}>
+                    {user.username}
+                  </div>
+                );
+              })}
+          </div>
         </div>
+        {error !== '' && <div>{error}</div>}
+
         <form onSubmit={handleSubmit} className="flex items-center mt-auto">
           <textarea
             onKeyDown={handleKeyDown}

@@ -17,8 +17,7 @@ const socket = io.connect(config.baseUrl);
 const Chat = () => {
   const [text, setText] = useState('');
   const user = useSelector((state) => state.users.loggedUser);
-  const { chats } = useSelector((state) => state.chat);
-  const loading = useSelector((state) => state.chat.loading);
+  const { chats, loading } = useSelector((state) => state.chat);
   const loginUser = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
   const id = useParams().id;
@@ -56,10 +55,16 @@ const Chat = () => {
     return () => socket.off('receive_message');
   }, [dispatch, id, chats]);
 
-  if (loading) return <div>loading...</div>;
-  const findChat = chats.find((c) => c.id === id);
+  if (loading || users.length === 0 || !users) return <div>loading...</div>;
 
-  if (!findChat) {
+  const findChat = chats.find((c) => c.id === id);
+  // const { username } = users.find((u) => u.id === findChat.user1);
+  const findUser = users.find((u) => u.id === findChat.user1);
+  const sortedMessages = [...findChat.messages].sort((a, b) => a.created - b.created);
+
+  if (!findChat || !findUser) {
+    console.log(users);
+    console.log(findChat);
     return <div>404</div>;
   }
   const handleSend = (e) => {
@@ -87,9 +92,6 @@ const Chat = () => {
       handleSend(e);
     }
   };
-
-  const { username } = users.find((u) => u.id === findChat.user1);
-  const sortedMessages = [...findChat.messages].sort((a, b) => a.created - b.created);
   if (findChat.users.length > 0)
     return (
       <div className="flex flex-col h-full">
@@ -114,7 +116,7 @@ const Chat = () => {
                       : 'flex gap-2 text-xs font-bold text-blue-700'
                   }
                 >
-                  {username}
+                  {findUser.username}
                 </p>
                 <p>{findChat.date}</p>
               </div>
@@ -172,8 +174,6 @@ const Chat = () => {
       </div>
     );
 
-  // const { username } = users.find((u) => u.id === findChat.user1);
-  // const sortedMessages = [...findChat.messages].sort((a, b) => a.created - b.created);
   const findUsername1 = users.find((u) => u.id === findChat.user1);
   const findUsername2 = users.find((u) => u.id === findChat.user2);
   return (
@@ -196,7 +196,7 @@ const Chat = () => {
                     : 'flex gap-2 text-xs font-bold text-blue-700'
                 }
               >
-                {username}
+                {findUser.username}
               </p>
               <p>{findChat.date}</p>
             </div>

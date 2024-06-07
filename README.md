@@ -13,3 +13,4 @@
 11. online indicator
 12. socket for new chat ?
 13. delete message
+14. mobile format
