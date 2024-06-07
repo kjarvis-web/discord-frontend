@@ -4,7 +4,7 @@ import { loggedUser } from './reducers/loginReducer';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Chat from './components/Chat';
 import Homepage from './components/Homepage';
 import NewChat from './components/NewChat';

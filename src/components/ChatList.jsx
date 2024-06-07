@@ -71,7 +71,7 @@ const ChatList = () => {
           return (
             user &&
             c.hidden === false && (
-              <Link key={c.id} to={`/chats/${c.id}`} onClick={() => handleNotify(c.id)}>
+              <Link key={c.id} to={`/chat/${c.id}`} onClick={() => handleNotify(c.id)}>
                 <div className="relative group flex items-center justify-between p-2 hover:bg-zinc-600 hover:bg-opacity-40 rounded transition duration-200">
                   {c.user1 && c.user2 ? (
                     <button className="font-semibold">{user.username}</button>
