@@ -29,8 +29,8 @@ function App() {
           <div className="main col-span-3 md:col-span-10 overflow-y-auto">
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route path="/chats/:id" element={<Chat />} />
-              <Route path="/chats/new" element={<NewChat />} />
+              <Route path="/chat/:id" element={<Chat />} />
+              <Route path="/chat/new" element={<NewChat />} />
               <Route path="/user/:id" element={<User />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>

@@ -31,9 +31,9 @@ const Search = () => {
     const findChat = chats.find((chat) => chat.user1 === id || chat.user2 === id);
 
     if (findChat) {
-      navigate(`/chats/${findChat.id}`);
+      navigate(`/chat/${findChat.id}`);
     } else {
-      navigate('/chats/new');
+      navigate('/chat/new');
     }
     setQuery('');
   };

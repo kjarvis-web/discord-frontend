@@ -18,9 +18,9 @@ const User = () => {
     dispatch(setRecipient(id));
     const findChat = chats.find((chat) => chat.user1 === id || chat.user2 === id);
     if (findChat) {
-      navigate(`/chats/${findChat.id}`);
+      navigate(`/chat/${findChat.id}`);
     } else {
-      navigate('/chats/new');
+      navigate('/chat/new');
     }
   };
 
@@ -87,21 +87,6 @@ const User = () => {
           </button>
         )}
       </div>
-      {/* {findFriend ? (
-        <button onClick={() => handleRemove(id)}>remove friend</button>
-      ) : findFriendRequest ? (
-        <p>Your request has been sent.</p>
-      ) : loggedUserRequests ? (
-        <div>
-          <Link to="/">
-            <p>go to Homepage</p>
-          </Link>
-        </div>
-      ) : (
-        <button onClick={(e) => handleFriendRequest(e, id)} className="bg-blue-500 rounded px-2">
-          Add as friend
-        </button>
-      )} */}
     </div>
   );
 };

@@ -47,13 +47,13 @@ const Homepage = () => {
 
           if (c.users.length > 0) {
             return (
-              <Link key={c.id} to={`/chats/${c.id}`}>
+              <Link key={c.id} to={`/chat/${c.id}`}>
                 <div className="hover:text-blue-600">Group</div>
               </Link>
             );
           }
           return (
-            <Link key={c.id} to={`/chats/${c.id}`}>
+            <Link key={c.id} to={`/chat/${c.id}`}>
               <div className="hover:text-blue-600">
                 {c.user1 === user.id ? findUsername2.username : findUsername1.username}
               </div>

@@ -22,7 +22,7 @@ const NewChat = () => {
         (chat) => chat.user1 === usernames[0] || chat.user2 === usernames[0]
       );
       if (findChat) {
-        return navigate(`/chats/${findChat.id}`);
+        return navigate(`/chat/${findChat.id}`);
       }
       const newChat = {
         chat,
@@ -31,7 +31,7 @@ const NewChat = () => {
       dispatch(addChat(newChat))
         .then((newChat) => {
           if (newChat.id) {
-            navigate(`/chats/${newChat.id}`);
+            navigate(`/chat/${newChat.id}`);
           }
         })
         .catch((error) => {
@@ -45,7 +45,7 @@ const NewChat = () => {
       dispatch(addGroupChat(newChat))
         .then((newChat) => {
           if (newChat.id) {
-            navigate(`/chats/${newChat.id}`);
+            navigate(`/chat/${newChat.id}`);
           }
         })
         .catch((error) => {
