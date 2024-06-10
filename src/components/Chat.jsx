@@ -191,7 +191,7 @@ const Chat = () => {
             <div className="flex gap-2 text-xs">
               <p
                 className={
-                  username === user.username
+                  findUser.username === user.username
                     ? 'flex gap-2 text-xs font-bold text-zinc-400'
                     : 'flex gap-2 text-xs font-bold text-blue-700'
                 }
