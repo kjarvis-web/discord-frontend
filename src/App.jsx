@@ -24,9 +24,9 @@ function App() {
     <Router>
       <main className="flex h-screen flex-col bg-slate-950 text-slate-100 font-inter">
         <Navbar />
-        <div className="grid grid-cols-4 md:grid-cols-12 h-full overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 h-full overflow-hidden">
           <Sidebar />
-          <div className="main col-span-3 md:col-span-10 overflow-y-auto">
+          <div className="main md:col-span-3 lg:col-span-10 overflow-y-auto">
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/chat/:id" element={<Chat />} />
