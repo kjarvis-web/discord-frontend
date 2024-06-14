@@ -37,8 +37,8 @@ const Homepage = () => {
   const friendRequests = user.friendRequests.filter((fr) => fr.status === 'pending');
 
   return (
-    <div className="mt-8 flex gap-2 justify-center">
-      <div className="user w-1/4 bg-slate-800 p-4 rounded flex flex-col gap-2">
+    <div className="mt-8 md:flex gap-2 justify-center grid grid-cols-1">
+      <div className="user bg-slate-800 p-4 rounded flex flex-col gap-2 md:w-1/4">
         <h1 className="text-2xl font-bold">{user.username}</h1>
         <h2 className="font-semibold">All Chats</h2>
         {chats.map((c) => {
@@ -61,11 +61,11 @@ const Homepage = () => {
           );
         })}
       </div>
-      <div className="friend-requests w-1/4 bg-zinc-500 p-4 rounded flex flex-col gap-2">
-        <h1 className="font-semibold">Friend Requests</h1>
-        {friendRequests.map((fr) => {
-          const findUser = allUsers.find((u) => u.id === fr.from);
-          if (friendRequests.length > 0) {
+      {friendRequests.length > 0 && (
+        <div className="friend-requests bg-zinc-500 p-4 rounded flex flex-col gap-2">
+          <h1 className="font-semibold">Friend Requests</h1>
+          {friendRequests.map((fr) => {
+            const findUser = allUsers.find((u) => u.id === fr.from);
             return (
               <div key={fr.id} className="bg-zinc-600 rounded">
                 <p>friend request: {findUser.username}</p>
@@ -75,9 +75,9 @@ const Homepage = () => {
                 </div>
               </div>
             );
-          }
-        })}
-      </div>
+          })}
+        </div>
+      )}
     </div>
   );
 };

@@ -5,8 +5,8 @@ import { FaUserFriends } from 'react-icons/fa';
 
 const MobileSidebar = () => {
   return (
-    <div>
-      <ul className="text-sm font-bold flex flex-col gap-4">
+    <div className="fixed bg-slate-800 w-full left-0">
+      <ul className="text-sm font-bold flex flex-col gap-4 p-2">
         <Link to="/friends">
           <li className="flex gap-1 hover:text-blue-500">
             <FaUserFriends className="w-5 h-5" />
