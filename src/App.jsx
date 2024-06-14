@@ -10,6 +10,8 @@ import Homepage from './components/Homepage';
 import NewChat from './components/NewChat';
 import User from './components/User';
 import Signup from './components/Signup';
+import FriendsList from './components/FriendsList';
+import ChatList from './components/ChatList';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,13 +28,15 @@ function App() {
         <Navbar />
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 h-full overflow-hidden">
           <Sidebar />
-          <div className="main md:col-span-3 lg:col-span-10 overflow-y-auto">
+          <div className="main md:col-span-3 lg:col-span-11 overflow-y-auto">
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/chat/:id" element={<Chat />} />
               <Route path="/chat/new" element={<NewChat />} />
               <Route path="/user/:id" element={<User />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path='/friends' element={<FriendsList />} />
+              <Route path='/messages' element={<ChatList />} />
             </Routes>
           </div>
         </div>

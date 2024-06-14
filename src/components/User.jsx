@@ -55,7 +55,7 @@ const User = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex flex-col md:flex-row md:items-center justify-center gap-2 px-2">
         <h1 className="font-semibold text-3xl">{user.username}</h1>
         <button
           onClick={handleMessage}
