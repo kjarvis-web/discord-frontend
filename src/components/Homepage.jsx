@@ -10,6 +10,7 @@ const Homepage = () => {
   const { chats } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
 
+  if (allUsers.length === 0) return <div>loading...</div>;
   if (!loginUser) {
     return (
       <div className="mt-8">
@@ -18,8 +19,6 @@ const Homepage = () => {
       </div>
     );
   }
-
-  if (allUsers.length === 0) return <div>loading...</div>;
 
   const config = {
     headers: { Authorization: `Bearer ${loginUser.token}` },
