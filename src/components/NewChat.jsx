@@ -85,8 +85,8 @@ const NewChat = () => {
   if (!findUser)
     return (
       <div className="p-2 w-full h-full flex flex-col">
-        <div className="grid grid-cols-9">
-          <div className="col-span-3 col-start-4 flex gap-x-2 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-9">
+          <div className="md:col-span-3 md:col-start-4 flex gap-x-2 items-center">
             <label htmlFor="compose" className="font-semibold text-sm">
               Create Group:
             </label>
@@ -105,19 +105,20 @@ const NewChat = () => {
               Add
             </button>
           </div>
-          <div className="mt-4 flex flex-col col-start-4">
+          <div className="mt-4 flex flex-col md:col-start-4">
+            {error !== '' && <div className="text-red-500 capitalize font-semibold">{error}</div>}
+            <h1 className="font-semibold">Recipients: </h1>
             {usernames &&
               usernames.map((u, i) => {
                 const user = users.find((user) => user.id === u);
                 return (
-                  <div className="" key={i}>
+                  <div className="text-sm" key={i}>
                     {user.username}
                   </div>
                 );
               })}
           </div>
         </div>
-        {error !== '' && <div>{error}</div>}
 
         <form onSubmit={handleSubmit} className="flex items-center mt-auto">
           <textarea
