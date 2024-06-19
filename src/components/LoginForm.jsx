@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 import { HiMiniArrowLeftStartOnRectangle } from 'react-icons/hi2';
 import io from 'socket.io-client';
 import config from '../utils/config';
+
 const socket = io.connect(config.baseUrl);
 
-const LoginForm = () => {
+const LoginForm = ({ handleToggle }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
@@ -26,12 +27,16 @@ const LoginForm = () => {
     dispatch(logout());
     navigate('/');
     socket.emit('leave_room');
+    handleToggle();
   };
 
   if (!user)
     return (
       <div>
-        <form onSubmit={handleSubmit} className="grid grid-cols-8 gap-y-2 text-zinc-950 text-sm">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col px-2 md:grid md:grid-cols-8 gap-y-2 text-zinc-950 text-sm"
+        >
           <input
             type="text"
             value={username}
@@ -51,7 +56,7 @@ const LoginForm = () => {
           />
           <button
             type="submit"
-            className="text-slate-100 row-start-3 col-start-4 col-span-2 bg-slate-500 rounded text-base"
+            className="text-slate-100 row-start-3 col-start-4 col-span-2 bg-blue-700 rounded text-base p-2"
           >
             Log In
           </button>
@@ -68,7 +73,7 @@ const LoginForm = () => {
     <div className="flex gap-4 items-center text-sm">
       <button
         onClick={handleLogout}
-        className="bg-slate-200 hover:bg-slate-100 rounded-full p-2 text-zinc-900 flex items-center"
+        className="md:bg-slate-200 md:hover:bg-slate-100 md:rounded-full md:p-2 md:text-zinc-900 flex items-center gap-1"
       >
         <HiMiniArrowLeftStartOnRectangle className="w-5 h-5" />
         <span>Log Out</span>

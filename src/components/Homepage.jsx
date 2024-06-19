@@ -19,7 +19,7 @@ const Homepage = () => {
       </div>
     );
   }
-
+  // if (allUsers.length === 0) return <div>loading...</div>;
   const config = {
     headers: { Authorization: `Bearer ${loginUser.token}` },
   };

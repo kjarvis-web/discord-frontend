@@ -18,9 +18,9 @@ const Navbar = () => {
   };
   return (
     <nav className="bg-slate-800 md:row-start-1 md:col-start-1 md:col-span-12 p-2">
-      <div className="flex justify-end md:justify-between md:items-center md:px-8">
+      <div className="flex justify-between md:items-center md:px-8">
         <Link to={'/'}>
-          <button className="hidden md:block text-4xl font-bold">discord lite</button>
+          <button className="text-4xl font-bold">discord lite</button>
         </Link>
         {loginUser && (
           <>
@@ -40,7 +40,7 @@ const Navbar = () => {
           </>
         )}
       </div>
-      {open && <MobileSidebar />}
+      {open && <MobileSidebar handleToggle={handleToggle} />}
     </nav>
   );
 };
