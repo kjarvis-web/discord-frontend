@@ -37,7 +37,7 @@ const Homepage = () => {
 
   return (
     <div className="mt-8 md:flex gap-2 justify-center grid grid-cols-1">
-      <div className="user bg-slate-800 p-4 rounded flex flex-col gap-2 md:w-1/4">
+      <div className="user bg-slate-900 p-4 md:rounded flex flex-col gap-2 md:w-1/4">
         <h1 className="text-2xl font-bold">{user.username}</h1>
         <h2 className="font-semibold">All Chats</h2>
         {chats.map((c) => {
