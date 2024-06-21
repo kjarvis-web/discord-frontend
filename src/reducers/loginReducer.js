@@ -27,6 +27,7 @@ export const { setUser, logout, setLoading, setError } = loginSlice.actions;
 export const loginUser = (username, password) => {
   return async (dispatch) => {
     try {
+      dispatch(setError(false));
       dispatch(setLoading(true));
       const user = await loginService.login({
         username,
@@ -39,9 +40,6 @@ export const loginUser = (username, password) => {
     } catch (error) {
       dispatch(setLoading(false));
       dispatch(setError(true));
-      setTimeout(() => {
-        dispatch(setError(false));
-      }, 3000);
     }
   };
 };

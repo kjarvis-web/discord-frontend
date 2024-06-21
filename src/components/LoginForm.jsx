@@ -14,6 +14,7 @@ const LoginForm = ({ handleToggle }) => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login.user);
+  const error = useSelector((state) => state.login.error);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -56,11 +57,12 @@ const LoginForm = ({ handleToggle }) => {
           />
           <button
             type="submit"
-            className="text-slate-100 row-start-3 col-start-4 col-span-2 bg-blue-700 rounded text-base p-2"
+            className="text-slate-100 row-start-3 col-start-4 col-span-2 bg-blue-700 hover:bg-blue-600 rounded text-base p-2"
           >
             Log In
           </button>
         </form>
+        {error && <p className="text-center text-red-500">Invalid username or password.</p>}
         <div className="text-center mt-8">
           <Link to={'/signup'} className="hover:underline">
             <p>Don&apos;t have an account? Sign up here.</p>
