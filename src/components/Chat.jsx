@@ -223,7 +223,15 @@ const Chat = () => {
                   <p>{m.date}</p>
                 </div>
                 <div className="flex relative">
-                  <p className="message text-lg whitespace-pre-wrap mr-2 overflow-auto">{m.text}</p>
+                  {m.deleted ? (
+                    <p className="text-lg whitespace-pre-wrap mr-2 overflow-auto text-red-500">
+                      {m.text}
+                    </p>
+                  ) : (
+                    <p className="message text-lg whitespace-pre-wrap mr-2 overflow-auto">
+                      {m.text}
+                    </p>
+                  )}
                   <Dropdown message={m} />
                 </div>
               </div>

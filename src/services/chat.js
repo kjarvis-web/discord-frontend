@@ -43,6 +43,19 @@ const editMessage = async (updatedMessage) => {
   return response.data;
 };
 
+const removeMessage = async (deletedMessage) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  const response = await axios.put(
+    `${messageUrl}/${deletedMessage.id}/remove`,
+    deletedMessage,
+    config
+  );
+  return response.data;
+};
+
 const notify = async (updatedChat) => {
   const response = await axios.put(`${baseUrl}/${updatedChat.id}/notify`, updatedChat);
   return response.data;
@@ -70,4 +83,5 @@ export default {
   notify,
   hideChat,
   addGroupChat,
+  removeMessage,
 };

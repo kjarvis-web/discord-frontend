@@ -55,6 +55,22 @@ const chatSlice = createSlice({
     setError(state, action) {
       return { ...state, error: action.payload };
     },
+    deleteMessage(state, action) {
+      const findChat = state.chats.find((o) => o.id === action.payload.chatId);
+      const findMessage = findChat.messages.find((m) => m.id === action.payload.id);
+      const newMessage = {
+        ...findMessage,
+        text: action.payload.text,
+        deleted: action.payload.deleted,
+      };
+      const newChat = {
+        ...findChat,
+        messages: [...findChat.messages.filter((m) => m.id !== action.payload.id), newMessage],
+      };
+      const newChats = state.chats.filter((c) => c.id !== action.payload.chatId);
+
+      return { ...state, chats: [...newChats, newChat] };
+    },
   },
 });
 
@@ -68,6 +84,7 @@ export const {
   setNotify,
   setHidden,
   setError,
+  deleteMessage,
 } = chatSlice.actions;
 
 export const getChatAll = () => {
@@ -158,6 +175,18 @@ export const hideChat = (chat) => {
       const newChat = await chatService.hideChat(chat);
       console.log(newChat);
       dispatch(setHidden(chat));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const removeMessage = (message) => {
+  return async (dispatch) => {
+    try {
+      const deletedMessage = await chatService.removeMessage(message);
+      console.log(deletedMessage);
+      dispatch(deleteMessage(deletedMessage));
     } catch (error) {
       console.log(error);
     }
