@@ -26,10 +26,6 @@ const Chat = () => {
   useEffect(() => {
     if (loginUser) {
       dispatch(getLoggedUser(loginUser.id));
-      // socket.emit('join_room', id);
-    } else {
-      console.log('leave');
-      // socket.emit('leave_all');
     }
   }, [dispatch, loginUser, id]);
 
@@ -58,13 +54,10 @@ const Chat = () => {
   if (loading || users.length === 0 || !users) return <div>loading...</div>;
 
   const findChat = chats.find((c) => c.id === id);
-  // const { username } = users.find((u) => u.id === findChat.user1);
   const findUser = users.find((u) => u.id === findChat.user1);
   const sortedMessages = [...findChat.messages].sort((a, b) => a.created - b.created);
 
   if (!findChat || !findUser) {
-    console.log(users);
-    console.log(findChat);
     return <div>404</div>;
   }
   const handleSend = (e) => {
@@ -81,6 +74,7 @@ const Chat = () => {
       date: format(date, 'M/d/yyyy, hh:mm aa'),
       created: Date.now(),
     };
+
     socket.emit('send_message', id, message);
     dispatch(addMessage(id, message));
     setText('');
@@ -224,7 +218,7 @@ const Chat = () => {
                 </div>
                 <div className="flex relative">
                   {m.deleted ? (
-                    <p className="text-lg whitespace-pre-wrap mr-2 overflow-auto text-red-500">
+                    <p className="text-lg whitespace-pre-wrap mr-2 overflow-auto text-red-500 italic">
                       {m.text}
                     </p>
                   ) : (

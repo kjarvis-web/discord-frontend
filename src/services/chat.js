@@ -7,7 +7,6 @@ const groupUrl = `${config.baseUrl}/group`;
 let token = null;
 const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
-  console.log(token);
 };
 
 const getChat = async () => {

@@ -12,5 +12,5 @@
 10. send friend requests from frontend &#x2705;
 11. online indicator
 12. socket for new chat ?
-13. delete message
-14. mobile format
+13. delete message &#x2705;
+14. mobile format &#x2705;
